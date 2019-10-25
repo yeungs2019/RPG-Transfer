@@ -1,0 +1,13 @@
+.root { -fx-focus-color: transparent; }
+
+.button {
+    -fx-background: #000;
+    -fx-color: #72fb03;
+    -fx-border-style: solid;
+    -fx-border-size: 1px;
+    -fx-border-color: #000;
+    -fx-border-radius: 5px;
+    -fx-font-family: Arial, Helvetica, sans-serif;
+    -fx-font-size: 12pt;
+    -fx-focus-color: transparent; 
+}
