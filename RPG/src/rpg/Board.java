@@ -76,8 +76,8 @@ public class Board extends Application {
         
         //player message 
         playerMessage = new Label();
-        playerMessage.setMaxWidth(75);
-        playerMessage.setAlignment(Pos.TOP_CENTER);
+        playerMessage.setMaxWidth(90);
+        playerMessage.setAlignment(Pos.TOP_RIGHT);
         playerMessage.setWrapText(true);
         
         //add player to start
@@ -190,8 +190,10 @@ public class Board extends Application {
         public void handle(ActionEvent event) {
             GridPane.setHalignment(player, HPos.CENTER);
             grid.add(player, 1, 0);
-            playerMessage.setText(("Look for puzzles"
-                    + "\nand items!"));
+            playerMessage.setText(("Look for puzzles and items!"));
+            
+            //disable go btn once player added
+            start.setDisable(true);
         }
     }
     
