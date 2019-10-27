@@ -76,7 +76,7 @@ public class Board extends Application {
         GridPane.setHalignment(start, HPos.CENTER);
         grid.add(start, 0, 1);
         
-        //create 12 square gameboard
+        //create 25 square gameboard
         Square square1 = new Square();
         Square square2 = new Square();
         Square square3 = new Square();
