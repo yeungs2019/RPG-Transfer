@@ -11,3 +11,7 @@
     -fx-font-size: 12pt;
     -fx-focus-color: transparent; 
 }
+
+.grid {
+    -fx-border-color: green;
+}
