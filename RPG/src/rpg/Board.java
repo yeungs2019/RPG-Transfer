@@ -13,6 +13,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -37,6 +38,8 @@ public class Board extends Application {
     private Button east;
     private Button south;
     private Button west;
+    //story display
+    private Label playerMessage;
     
     //playing grid
     private GridPane grid = new GridPane();
@@ -71,10 +74,18 @@ public class Board extends Application {
         Image thinking = new Image("file:images/player.png");
         ImageView playerIV = new ImageView(thinking);
         
+        //player message 
+        playerMessage = new Label();
+        playerMessage.setMaxWidth(75);
+        playerMessage.setAlignment(Pos.TOP_CENTER);
+        playerMessage.setWrapText(true);
+        
         //add player to start
         grid.add(playerIV, 0, 0);
         GridPane.setHalignment(start, HPos.CENTER);
         grid.add(start, 0, 1);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(playerMessage, 0, 2);
         
         //create 25 square gameboard
         Square square1 = new Square();
@@ -179,6 +190,8 @@ public class Board extends Application {
         public void handle(ActionEvent event) {
             GridPane.setHalignment(player, HPos.CENTER);
             grid.add(player, 1, 0);
+            playerMessage.setText(("Look for puzzles"
+                    + "\nand items!"));
         }
     }
     
