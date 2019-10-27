@@ -60,13 +60,21 @@ public class Board extends Application {
         start = new Button("Start");
         close = new Button("Close Game");
         north = new Button("Go North");
+        north.setDisable(true);
         east = new Button("Go East");
+        east.setDisable(true);
         south = new Button("Go South");
+        south.setDisable(true);
         west = new Button("Go West");
+        west.setDisable(true);
         
         //button Event Handlers
         start.setOnAction(new StartBtnHandler());
         close.setOnAction(new CloseBtnHandler());
+        north.setOnAction(new NorthBtnHandler());
+        east.setOnAction(new EastBtnHandler());
+        south.setOnAction(new SouthBtnHandler());
+        west.setOnAction(new WestBtnHandler());
         
         //row for bottom row button controls
         HBox btmRowControls = new HBox(10, north, east, south, west, close);
@@ -196,6 +204,48 @@ public class Board extends Application {
             
             //disable go btn once player added
             start.setDisable(true);
+            north.setDisable(false);
+            east.setDisable(false);
+            south.setDisable(false);
+            west.setDisable(false);
+        }
+    }
+    
+    //go north btn handler
+    class NorthBtnHandler implements EventHandler<ActionEvent> {
+        
+        @Override
+        public void handle(ActionEvent event) {
+            grid.getChildren().remove(player);
+            grid.add(player, 1, 0);
+        }
+    }
+    
+    //go east btn handler
+    class EastBtnHandler implements EventHandler<ActionEvent> {
+        
+        @Override
+        public void handle(ActionEvent event) {
+            grid.getChildren().remove(player);
+            grid.add(player, 2, 0);
+        }
+    }
+    //go south btn handler
+    class SouthBtnHandler implements EventHandler<ActionEvent> {
+        
+        @Override
+        public void handle(ActionEvent event) {
+            grid.getChildren().remove(player);
+            grid.add(player, 2, 1);
+        }
+    }
+    //go west btn handler
+    class WestBtnHandler implements EventHandler<ActionEvent> {
+        
+        @Override
+        public void handle(ActionEvent event) {
+            grid.getChildren().remove(player);
+            grid.add(player, 1, 1);
         }
     }
     
