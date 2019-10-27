@@ -57,7 +57,7 @@ public class Board extends Application {
     public void start(Stage primaryStage) {
         
         //buttons
-        start = new Button("Go");
+        start = new Button("Start");
         close = new Button("Close Game");
         north = new Button("Go North");
         east = new Button("Go East");
