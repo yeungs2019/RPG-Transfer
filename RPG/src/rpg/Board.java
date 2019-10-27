@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import static javafx.geometry.HPos.RIGHT;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -77,15 +78,16 @@ public class Board extends Application {
         //player message 
         playerMessage = new Label();
         playerMessage.setMaxWidth(90);
-        playerMessage.setAlignment(Pos.TOP_RIGHT);
-        playerMessage.setWrapText(true);
+        //note to self - this is not doing anything on the label - find out why... 
+        playerMessage.setAlignment(Pos.TOP_LEFT);
+        playerMessage.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
         
         //add player to start
         grid.add(playerIV, 0, 0);
-        GridPane.setHalignment(start, HPos.CENTER);
+        GridPane.setHalignment(start, HPos.LEFT);
         grid.add(start, 0, 1);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
-        grid.add(playerMessage, 0, 2);
+        grid.add(playerMessage, 0, 2, 1, 3);
         
         //create 25 square gameboard
         Square square1 = new Square();
@@ -190,7 +192,7 @@ public class Board extends Application {
         public void handle(ActionEvent event) {
             GridPane.setHalignment(player, HPos.CENTER);
             grid.add(player, 1, 0);
-            playerMessage.setText(("Look for puzzles and items!"));
+            playerMessage.setText(("Your position on the board is indicated by the red dot. Click direction buttons to look for puzzles and items!"));
             
             //disable go btn once player added
             start.setDisable(true);
