@@ -41,8 +41,10 @@ public class GameEngine extends Application {
     
     //playing grid
     private GridPane grid = new GridPane();
-    //player represented by sphere
+    //player represented by sphere temporarily
     private Circle player = new Circle(10.0f, Color.RED);
+    private Player player1 = new Player("Einstein", "file:images/einstein.png");
+    private ImageView einstein = player1.getProfile();
     
     @Override
     public void start(Stage primaryStage) {
@@ -73,6 +75,8 @@ public class GameEngine extends Application {
         
         Image thinking = new Image("file:images/player.png");
         ImageView playerIV = new ImageView(thinking);
+        
+        
         
         //player message 
         playerMessage = new Label();
@@ -171,9 +175,9 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            GridPane.setHalignment(player, HPos.CENTER);
-            grid.add(player, 1, 0);
-            playerMessage.setText(("Your position on the board is indicated by the red dot. Click direction buttons to look for puzzles and items!"));
+            GridPane.setHalignment(einstein, HPos.CENTER);
+            grid.add(einstein, 1, 0);
+            playerMessage.setText(("Your position on the board is indicated by your profile picture. Click direction buttons to look for puzzles and items!"));
             
             //disable go btn once player added
             start.setDisable(true);
@@ -189,8 +193,11 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 1, 0);
+            grid.getChildren().remove(einstein);
+            grid.add(einstein, 1, 0);
+            //testing get player location
+            System.out.println(player1.getColumnLocation(grid, einstein));
+            System.out.println(player1.getRowLocation(grid, einstein));
         }
     }
     
@@ -199,8 +206,8 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 2, 0);
+            grid.getChildren().remove(einstein);
+            grid.add(einstein, 2, 0);
         }
     }
     //go south btn handler
@@ -208,8 +215,8 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 2, 1);
+            grid.getChildren().remove(einstein);
+            grid.add(einstein, 2, 1);
         }
     }
     //go west btn handler
@@ -217,8 +224,8 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 1, 1);
+            grid.getChildren().remove(einstein);
+            grid.add(einstein, 1, 1);
         }
     }
     
