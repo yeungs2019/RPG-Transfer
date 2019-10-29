@@ -43,10 +43,6 @@ public class Player {
         
         return playerNode;
     }
-
-    public void setProfile(Image mProfile) {
-        this.mProfile = mProfile;
-    }
     
     public int getColumnLocation(GridPane grid, Node player) {
        
