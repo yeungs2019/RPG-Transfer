@@ -40,6 +40,8 @@ public class GameEngine extends Application {
     private Label playerMessage;
     
     //playing grid
+    private final int COL_MAX_INDEX = 5;
+    private final int ROW_MAX_INDEX = 4;
     private GridPane grid = new GridPane();
     //player represented by sphere temporarily
     private Circle player = new Circle(10.0f, Color.RED);
@@ -190,14 +192,18 @@ public class GameEngine extends Application {
     
     //go north btn handler
     class NorthBtnHandler implements EventHandler<ActionEvent> {
-        
+            
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(einstein);
-            grid.add(einstein, 1, 0);
-            //testing get player location
-            System.out.println(player1.getColumnLocation(grid, einstein));
-            System.out.println(player1.getRowLocation(grid, einstein));
+            
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(row > 0) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col, row - 1);
+            }
+            
         }
     }
     
@@ -206,8 +212,13 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(einstein);
-            grid.add(einstein, 2, 0);
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(col < COL_MAX_INDEX) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col + 1, row);
+            }
         }
     }
     //go south btn handler
@@ -215,8 +226,13 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(einstein);
-            grid.add(einstein, 2, 1);
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(row < ROW_MAX_INDEX) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col, row + 1);
+            }
         }
     }
     //go west btn handler
@@ -224,8 +240,13 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(einstein);
-            grid.add(einstein, 1, 1);
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(col > 1) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col - 1, row);
+            }
         }
     }
     
