@@ -107,7 +107,7 @@ public class torchPuzzle extends Application {
         
         Scene scene = new Scene(screen, 300, 250);
         
-        primaryStage.setTitle("A wall of Torcehs");
+        primaryStage.setTitle("A wall of Torches");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
