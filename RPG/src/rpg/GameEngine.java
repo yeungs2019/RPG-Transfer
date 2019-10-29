@@ -72,8 +72,11 @@ public class GameEngine extends Application {
         west.setOnAction(new GameEngine.WestBtnHandler());
         
         //row for bottom row button controls
-        HBox btmRowControls = new HBox(10, north, east, south, west, close);
-        btmRowControls.setAlignment(Pos.CENTER);
+        HBox middleRowBtns = new HBox(10, west, close, east);
+        VBox directionBtns = new VBox(10, north, middleRowBtns, south);
+        
+        middleRowBtns.setAlignment(Pos.CENTER);
+        directionBtns.setAlignment(Pos.CENTER);
         
         Image thinking = new Image("file:images/player.png");
         ImageView playerIV = new ImageView(thinking);
@@ -154,7 +157,7 @@ public class GameEngine extends Application {
         grid.setPrefHeight(500);
         
         //container box to hold main elements
-        VBox container = new VBox(25, grid, btmRowControls);
+        VBox container = new VBox(25, grid, directionBtns);
         container.setAlignment(Pos.CENTER);
         container.setPadding(new Insets(25));
         
