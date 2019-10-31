@@ -16,10 +16,14 @@ import javafx.scene.shape.Rectangle;
  */
 public class GameSquare extends StackPane {
     
+    private Rectangle border;
+    private boolean isBlocked;
+    
     //constructor
-    public GameSquare() {
+    public GameSquare(boolean block) {
+
         //border for each tile - rect with no fill
-        Rectangle border = new Rectangle(100, 100);
+        border = new Rectangle(100, 100);
         //removes color from rectangle
         border.setFill(null);
         //add border color to each tile
@@ -29,6 +33,14 @@ public class GameSquare extends StackPane {
         setAlignment(Pos.CENTER);
 
         getChildren().addAll(border);
+        
+        isBlocked = block;
+    }
+    
+    //methods
+    public void setPlayerBlock() {
+        border.setFill(Color.BLACK);
+        isBlocked = true;
     }
     
 }

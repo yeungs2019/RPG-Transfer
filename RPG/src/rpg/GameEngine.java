@@ -19,8 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -38,11 +36,14 @@ public class GameEngine extends Application {
     private Button west;
     //story display
     private Label playerMessage;
+    private Label playerAlert;
     
     //playing grid
+    private final int COL_MAX_INDEX = 5;
+    private final int ROW_MAX_INDEX = 4;
     private GridPane grid = new GridPane();
-    //player represented by sphere
-    private Circle player = new Circle(10.0f, Color.RED);
+    private Player player1 = new Player("Einstein", "file:images/einstein.png");
+    private ImageView einstein = player1.getProfile();
     
     @Override
     public void start(Stage primaryStage) {
@@ -50,6 +51,7 @@ public class GameEngine extends Application {
         //buttons
         start = new Button("Start");
         close = new Button("Close Game");
+        close.setStyle("-fx-color: RED");
         north = new Button("Go North");
         north.setDisable(true);
         east = new Button("Go East");
@@ -67,19 +69,27 @@ public class GameEngine extends Application {
         south.setOnAction(new GameEngine.SouthBtnHandler());
         west.setOnAction(new GameEngine.WestBtnHandler());
         
-        //row for bottom row button controls
-        HBox btmRowControls = new HBox(10, north, east, south, west, close);
-        btmRowControls.setAlignment(Pos.CENTER);
+        //directional button controls
+        HBox middleRowBtns = new HBox(10, west, close, east);
+        VBox directionBtns = new VBox(10, north, middleRowBtns, south);      
+        middleRowBtns.setAlignment(Pos.CENTER);
+        directionBtns.setAlignment(Pos.CENTER);
         
-        Image thinking = new Image("file:images/player.png");
-        ImageView playerIV = new ImageView(thinking);
-        
-        //player message 
+        //player message left sidebar 
         playerMessage = new Label();
         playerMessage.setMaxWidth(90);
-        //note to self - this is not doing anything on the label - find out why... 
-        playerMessage.setAlignment(Pos.TOP_LEFT);
         playerMessage.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
+        
+        //display player greeting and alert messages for player
+        playerAlert = new Label();
+        playerAlert.setMaxWidth(600);
+        //note to self - this is not doing anything on the label - find out why... 
+        playerAlert.setAlignment(Pos.CENTER);
+        playerAlert.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: blue; -fx-wrap-text:true;");
+        
+        //bird - just for fun
+        Image thinking = new Image("file:images/player.png");
+        ImageView playerIV = new ImageView(thinking);
         
         //add player to start
         grid.add(playerIV, 0, 0);
@@ -89,31 +99,39 @@ public class GameEngine extends Application {
         grid.add(playerMessage, 0, 2, 1, 3);
         
         //create 25 Gamesquare gameboard
-        GameSquare square1 = new GameSquare();
-        GameSquare square2 = new GameSquare();
-        GameSquare square3 = new GameSquare();
-        GameSquare square4 = new GameSquare();
-        GameSquare square5 = new GameSquare();
-        GameSquare square6 = new GameSquare();
-        GameSquare square7 = new GameSquare();
-        GameSquare square8 = new GameSquare();
-        GameSquare square9 = new GameSquare();
-        GameSquare square10 = new GameSquare();
-        GameSquare square11 = new GameSquare();
-        GameSquare square12 = new GameSquare();
-        GameSquare square13 = new GameSquare();
-        GameSquare square14 = new GameSquare();
-        GameSquare square15 = new GameSquare();
-        GameSquare square16 = new GameSquare();
-        GameSquare square17 = new GameSquare();
-        GameSquare square18 = new GameSquare();
-        GameSquare square19 = new GameSquare();
-        GameSquare square20 = new GameSquare();
-        GameSquare square21 = new GameSquare();
-        GameSquare square22 = new GameSquare();
-        GameSquare square23 = new GameSquare();
-        GameSquare square24 = new GameSquare();
-        GameSquare square25 = new GameSquare();
+        GameSquare square1 = new GameSquare(false);
+        GameSquare square2 = new GameSquare(true);
+        square2.setPlayerBlock();
+        GameSquare square3 = new GameSquare(false);
+        GameSquare square4 = new GameSquare(false);
+        GameSquare square5 = new GameSquare(false);
+        GameSquare square6 = new GameSquare(false);
+        GameSquare square7 = new GameSquare(true);
+        square7.setPlayerBlock();
+        GameSquare square8 = new GameSquare(false);
+        GameSquare square9 = new GameSquare(true);
+        square9.setPlayerBlock();
+        GameSquare square10 = new GameSquare(true);
+        square10.setPlayerBlock();
+        GameSquare square11 = new GameSquare(false);
+        GameSquare square12 = new GameSquare(false);
+        GameSquare square13 = new GameSquare(false);
+        GameSquare square14 = new GameSquare(false);
+        GameSquare square15 = new GameSquare(true);
+        square15.setPlayerBlock();
+        GameSquare square16 = new GameSquare(false);
+        GameSquare square17 = new GameSquare(true);
+        square17.setPlayerBlock();
+        GameSquare square18 = new GameSquare(true);
+        square18.setPlayerBlock();
+        GameSquare square19 = new GameSquare(false);
+        GameSquare square20 = new GameSquare(false);
+        GameSquare square21 = new GameSquare(false);
+        GameSquare square22 = new GameSquare(false);
+        GameSquare square23 = new GameSquare(false);
+        GameSquare square24 = new GameSquare(false);
+        GameSquare square25 = new GameSquare(false);
+        square25.setPlayerBlock();
         
         //add Gamesquares to the gameboard
         grid.add(square1, 1, 0);
@@ -148,7 +166,7 @@ public class GameEngine extends Application {
         grid.setPrefHeight(500);
         
         //container box to hold main elements
-        VBox container = new VBox(25, grid, btmRowControls);
+        VBox container = new VBox(25, playerAlert, grid, directionBtns);
         container.setAlignment(Pos.CENTER);
         container.setPadding(new Insets(25));
         
@@ -171,9 +189,10 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            GridPane.setHalignment(player, HPos.CENTER);
-            grid.add(player, 1, 0);
-            playerMessage.setText(("Your position on the board is indicated by the red dot. Click direction buttons to look for puzzles and items!"));
+            GridPane.setHalignment(einstein, HPos.CENTER);
+            grid.add(einstein, 1, 0);
+            playerMessage.setText(("Your position on the board is indicated by your profile picture. Click direction buttons to look for puzzles and items!"));
+            playerAlert.setText(("Begin your quest, " + player1.getName() + "!"));
             
             //disable go btn once player added
             start.setDisable(true);
@@ -186,11 +205,18 @@ public class GameEngine extends Application {
     
     //go north btn handler
     class NorthBtnHandler implements EventHandler<ActionEvent> {
-        
+            
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 1, 0);
+            
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(row > 0) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col, row - 1);
+            }
+            
         }
     }
     
@@ -199,8 +225,13 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 2, 0);
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(col < COL_MAX_INDEX) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col + 1, row);
+            }
         }
     }
     //go south btn handler
@@ -208,8 +239,13 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 2, 1);
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(row < ROW_MAX_INDEX) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col, row + 1);
+            }
         }
     }
     //go west btn handler
@@ -217,8 +253,13 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            grid.getChildren().remove(player);
-            grid.add(player, 1, 1);
+            int col = player1.getColumnLocation(grid, einstein);
+            int row = player1.getRowLocation(grid, einstein);
+            
+            if(col > 1) {
+                grid.getChildren().remove(einstein);
+                grid.add(einstein, col - 1, row);
+            }
         }
     }
     
