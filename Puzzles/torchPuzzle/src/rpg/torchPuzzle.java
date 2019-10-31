@@ -46,7 +46,7 @@ public class torchPuzzle extends Application {
     // Button states (1 = true, 2 = false)
     private boolean button1State = true;
     private boolean button2State = true;
-    private boolean button3State = true;
+    private boolean button3State = false;
     private boolean button4State = true;
     
     // Is the puzzle solved or not
