@@ -37,17 +37,17 @@ public class GameEngine extends Application {
     private Button south;
     private Button west;
     //story display
-    private Label playerMessage;
-    private Label playerAlert;
-    private Label playerScore;
-    private Label playerItems;
+    protected Label playerMessage;
+    protected Label playerAlert;
+    protected Label playerScore;
+    protected Label playerItems;
     
     //playing grid
     private final int COL_MAX_INDEX = 6;
     private final int ROW_MAX_INDEX = 6;
     private final GridPane grid = new GridPane();
-    private final Player player1 = new Player("Einstein", "file:images/einstein.png");
-    private final ImageView einstein = player1.getProfile();
+    protected final Player player1 = new Player("Einstein", "file:images/einstein.png");
+    protected final ImageView einstein = player1.getProfile();
     
     
     @Override
@@ -82,8 +82,8 @@ public class GameEngine extends Application {
         playerMessage = new Label();
         playerMessage.setMaxWidth(600);
         playerMessage.setAlignment(Pos.TOP_LEFT);
-        playerMessage.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
-        playerMessage.setText(("Click direction buttons to find puzzles and items!"));
+        playerMessage.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: blue; -fx-wrap-text:true;");
+        playerMessage.setText(("Click Start to Begin!"));
         
         //display player greeting and alert messages for player
         playerAlert = new Label();
@@ -103,7 +103,7 @@ public class GameEngine extends Application {
         playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
         
         //example of adding to Score and adding to Items
-        player1.addOneToScore(10);
+        player1.addToScore(10);
         playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
         player1.addToItemsList("teddybear");
         player1.addToItemsList("sword");
@@ -255,7 +255,7 @@ public class GameEngine extends Application {
         @Override
         public void handle(ActionEvent event) {
 
-            playerAlert.setText(("Begin your quest, " + player1.getName() + "!"));
+            playerAlert.setText(("Begin your quest, " + player1.getName() + "! Use Buttons below to move."));
             
             //disable go btn once player added
             start.setDisable(true);

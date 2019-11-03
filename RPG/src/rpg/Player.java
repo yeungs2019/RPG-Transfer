@@ -56,11 +56,11 @@ public class Player {
         mScore = score;
     }
     
-    public int addOneToScore(int score) {   
+    public int addToScore(int score) {   
         mScore += score;
         return mScore;
     }
-    public int subtractOneFromScore(int score) {   
+    public int subtractFromScore(int score) {   
         mScore -= score;
         if (mScore <= 0) {
             mScore = 0;
