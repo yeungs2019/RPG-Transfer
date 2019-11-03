@@ -45,9 +45,9 @@ public class GameEngine extends Application {
     //playing grid
     private final int COL_MAX_INDEX = 6;
     private final int ROW_MAX_INDEX = 6;
-    private GridPane grid = new GridPane();
-    private Player player1 = new Player("Einstein", "file:images/einstein.png");
-    private ImageView einstein = player1.getProfile();
+    private final GridPane grid = new GridPane();
+    private final Player player1 = new Player("Einstein", "file:images/einstein.png");
+    private final ImageView einstein = player1.getProfile();
     
     
     @Override
@@ -83,7 +83,7 @@ public class GameEngine extends Application {
         playerMessage.setMaxWidth(600);
         playerMessage.setAlignment(Pos.TOP_LEFT);
         playerMessage.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
-        playerMessage.setText(("Click direction buttons to goto puzzles and find items!"));
+        playerMessage.setText(("Click direction buttons to find puzzles and items!"));
         
         //display player greeting and alert messages for player
         playerAlert = new Label();
