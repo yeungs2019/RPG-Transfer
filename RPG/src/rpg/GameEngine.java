@@ -5,6 +5,8 @@
  */
 package rpg;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,11 +41,12 @@ public class GameEngine extends Application {
     private Label playerAlert;
     
     //playing grid
-    private final int COL_MAX_INDEX = 5;
-    private final int ROW_MAX_INDEX = 4;
+    private final int COL_MAX_INDEX = 6;
+    private final int ROW_MAX_INDEX = 6;
     private GridPane grid = new GridPane();
     private Player player1 = new Player("Einstein", "file:images/einstein.png");
     private ImageView einstein = player1.getProfile();
+    
     
     @Override
     public void start(Stage primaryStage) {
@@ -70,60 +73,46 @@ public class GameEngine extends Application {
         west.setOnAction(new GameEngine.WestBtnHandler());
         
         //directional button controls
-        HBox middleRowBtns = new HBox(10, west, close, east);
-        VBox directionBtns = new VBox(10, north, middleRowBtns, south);      
-        middleRowBtns.setAlignment(Pos.CENTER);
-        directionBtns.setAlignment(Pos.CENTER);
+        HBox directionBtns = new HBox(5, north, east, south, west, close);      
+        directionBtns.setAlignment(Pos.BASELINE_LEFT);
         
         //player message left sidebar 
         playerMessage = new Label();
-        playerMessage.setMaxWidth(90);
+        playerMessage.setMaxWidth(600);
+        playerMessage.setAlignment(Pos.TOP_LEFT);
         playerMessage.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
+        playerMessage.setText(("Click direction buttons to goto puzzles and find items!"));
         
         //display player greeting and alert messages for player
         playerAlert = new Label();
         playerAlert.setMaxWidth(600);
         //note to self - this is not doing anything on the label - find out why... 
-        playerAlert.setAlignment(Pos.CENTER);
+        playerAlert.setAlignment(Pos.TOP_LEFT);
         playerAlert.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: blue; -fx-wrap-text:true;");
         
-        //bird - just for fun
-        Image thinking = new Image("file:images/player.png");
-        ImageView playerIV = new ImageView(thinking);
         
         //add player to start
-        grid.add(playerIV, 0, 0);
-        GridPane.setHalignment(start, HPos.LEFT);
-        grid.add(start, 0, 1);
-        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
-        grid.add(playerMessage, 0, 2, 1, 3);
-        
+//        GridPane.setHalignment(start, HPos.LEFT);
+
         //create 25 Gamesquare gameboard
         GameSquare square1 = new GameSquare(false);
-        GameSquare square2 = new GameSquare(true);
-        square2.setPlayerBlock();
+        GameSquare square2 = new GameSquare(false);
         GameSquare square3 = new GameSquare(false);
         GameSquare square4 = new GameSquare(false);
         GameSquare square5 = new GameSquare(false);
         GameSquare square6 = new GameSquare(false);
-        GameSquare square7 = new GameSquare(true);
-        square7.setPlayerBlock();
+        GameSquare square7 = new GameSquare(false);
         GameSquare square8 = new GameSquare(false);
-        GameSquare square9 = new GameSquare(true);
-        square9.setPlayerBlock();
-        GameSquare square10 = new GameSquare(true);
-        square10.setPlayerBlock();
+        GameSquare square9 = new GameSquare(false);
+        GameSquare square10 = new GameSquare(false);
         GameSquare square11 = new GameSquare(false);
         GameSquare square12 = new GameSquare(false);
         GameSquare square13 = new GameSquare(false);
         GameSquare square14 = new GameSquare(false);
-        GameSquare square15 = new GameSquare(true);
-        square15.setPlayerBlock();
+        GameSquare square15 = new GameSquare(false);
         GameSquare square16 = new GameSquare(false);
-        GameSquare square17 = new GameSquare(true);
-        square17.setPlayerBlock();
-        GameSquare square18 = new GameSquare(true);
-        square18.setPlayerBlock();
+        GameSquare square17 = new GameSquare(false);
+        GameSquare square18 = new GameSquare(false);
         GameSquare square19 = new GameSquare(false);
         GameSquare square20 = new GameSquare(false);
         GameSquare square21 = new GameSquare(false);
@@ -131,52 +120,112 @@ public class GameEngine extends Application {
         GameSquare square23 = new GameSquare(false);
         GameSquare square24 = new GameSquare(false);
         GameSquare square25 = new GameSquare(false);
-        square25.setPlayerBlock();
+        GameSquare square26 = new GameSquare(false);
+        GameSquare square27 = new GameSquare(false);
+        GameSquare square28 = new GameSquare(false);
+        GameSquare square29 = new GameSquare(false);
+        GameSquare square30 = new GameSquare(false);
+        GameSquare square31 = new GameSquare(false);
+        GameSquare square32 = new GameSquare(false);
+        GameSquare square33 = new GameSquare(false);
+        GameSquare square34 = new GameSquare(false);
+        GameSquare square35 = new GameSquare(false);
+        GameSquare square36 = new GameSquare(false);
+        GameSquare square37 = new GameSquare(false);
+        GameSquare square38 = new GameSquare(false);
+        GameSquare square39 = new GameSquare(false);
+        GameSquare square40 = new GameSquare(false);
+        GameSquare square41 = new GameSquare(false);
+        GameSquare square42 = new GameSquare(false);
+        GameSquare square43 = new GameSquare(false);
+        GameSquare square44 = new GameSquare(false);
+        GameSquare square45 = new GameSquare(false);
+        GameSquare square46 = new GameSquare(false);
+        GameSquare square47 = new GameSquare(false);
+        GameSquare square48 = new GameSquare(false);
+        GameSquare square49 = new GameSquare(false);
+        GameSquare square50 = new GameSquare(false);
         
         //add Gamesquares to the gameboard
-        grid.add(square1, 1, 0);
-        grid.add(square2, 1, 1);
-        grid.add(square3, 1, 2);
-        grid.add(square4, 1, 3);
-        grid.add(square5, 1, 4);
-        grid.add(square6, 2, 0);
-        grid.add(square7, 2, 1);
-        grid.add(square8, 2, 2);
-        grid.add(square9, 2, 3);
-        grid.add(square10, 2, 4);
-        grid.add(square11, 3, 0);
-        grid.add(square12, 3, 1);
-        grid.add(square13, 3, 2);
-        grid.add(square14, 3, 3);
-        grid.add(square15, 3, 4);
-        grid.add(square16, 4, 0);
-        grid.add(square17, 4, 1);
-        grid.add(square18, 4, 2);
-        grid.add(square19, 4, 3);
-        grid.add(square20, 4, 4);
-        grid.add(square21, 5, 0);
-        grid.add(square22, 5, 1);
-        grid.add(square23, 5, 2);
-        grid.add(square24, 5, 3);
-        grid.add(square25, 5, 4);
+        grid.add(square1, 0, 0);
+        grid.add(square2, 0, 1);
+        grid.add(square3, 0, 2);
+        grid.add(square4, 0, 3);
+        grid.add(square5, 0, 4);
+        grid.add(square6, 0, 5);
+        grid.add(square7, 0, 6);
+        grid.add(square8, 1, 0);
+        grid.add(square9, 1, 1);
+        grid.add(square10, 1, 2);
+        grid.add(square11, 1, 3);
+        grid.add(square12, 1, 4);
+        grid.add(square13, 1, 5);
+        grid.add(square14, 1, 6);
+        grid.add(square15, 2, 0);
+        grid.add(square16, 2, 1);
+        grid.add(square17, 2, 2);
+        grid.add(square18, 2, 3);
+        grid.add(square19, 2, 4);
+        grid.add(square20, 2, 5);
+        grid.add(square21, 2, 6);
+        grid.add(square22, 3, 0);
+        grid.add(square23, 3, 1);
+        grid.add(square24, 3, 2);
+        grid.add(square25, 3, 3);
+        grid.add(square26, 3, 4);
+        grid.add(square27, 3, 5);
+        grid.add(square28, 3, 6);
+        grid.add(square29, 4, 0);
+        grid.add(square30, 4, 1);
+        grid.add(square31, 4, 2);
+        grid.add(square32, 4, 3);
+        grid.add(square33, 4, 4);
+        grid.add(square34, 4, 5);
+        grid.add(square35, 4, 6);
+        grid.add(square36, 5, 0);
+        grid.add(square37, 5, 1);
+        grid.add(square38, 5, 2);
+        grid.add(square39, 5, 3);
+        grid.add(square40, 5, 4);
+        grid.add(square41, 5, 5);
+        grid.add(square42, 5, 6);
+        grid.add(square43, 6, 0);
+        grid.add(square44, 6, 1);
+        grid.add(square45, 6, 2);
+        grid.add(square46, 6, 3);
+        grid.add(square47, 6, 4);
+        grid.add(square48, 6, 5);
+        grid.add(square49, 6, 6);
+        
+
    
         //GridPane styles
-        grid.setPadding(new Insets(20));
-        grid.setPrefWidth(500);
-        grid.setPrefHeight(500);
+        grid.setPadding(new Insets(0));
+        
+        GridPane.setHalignment(einstein, HPos.CENTER);
+        grid.add(einstein, 0, 0);
+        
+        //add puzzle locations to the board
+        Image torchIcon = new Image("file:images/torch-icon.jpg");
+        ImageView torchV = new ImageView(torchIcon);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(torchV, 2, 3, 1, 1);
+        GridPane.setHalignment(torchV, HPos.CENTER);
         
         //container box to hold main elements
-        VBox container = new VBox(25, playerAlert, grid, directionBtns);
-        container.setAlignment(Pos.CENTER);
+        HBox boardDiv = new HBox(10, start, grid);
+        VBox container = new VBox(15, playerMessage, playerAlert, boardDiv, directionBtns);
+        container.setAlignment(Pos.BASELINE_LEFT);
         container.setPadding(new Insets(25));
         
         //create Scene
-        Scene scene = new Scene(container, 800, 800);
+        Scene scene = new Scene(container, 900, 600);
 //        scene.getStylesheets().add("board.css");
 
         primaryStage.setTitle("RPG Team Project");
         primaryStage.setScene(scene);
         primaryStage.show();
+
            
     }
     
@@ -189,9 +238,7 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            GridPane.setHalignment(einstein, HPos.CENTER);
-            grid.add(einstein, 1, 0);
-            playerMessage.setText(("Your position on the board is indicated by your profile picture. Click direction buttons to look for puzzles and items!"));
+
             playerAlert.setText(("Begin your quest, " + player1.getName() + "!"));
             
             //disable go btn once player added
@@ -217,6 +264,21 @@ public class GameEngine extends Application {
                 grid.add(einstein, col, row - 1);
             }
             
+            //start torch puzzle
+            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+                try {
+                    Application torches = torchPuzzle.class.newInstance();
+                    Stage torchStage = new Stage();
+                    torches.start(torchStage);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         }
     }
     
@@ -232,6 +294,21 @@ public class GameEngine extends Application {
                 grid.getChildren().remove(einstein);
                 grid.add(einstein, col + 1, row);
             }
+            
+            //start torch puzzle
+            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+                try {
+                    Application torches = torchPuzzle.class.newInstance();
+                    Stage torchStage = new Stage();
+                    torches.start(torchStage);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
     //go south btn handler
@@ -246,6 +323,21 @@ public class GameEngine extends Application {
                 grid.getChildren().remove(einstein);
                 grid.add(einstein, col, row + 1);
             }
+            
+            //start torch puzzle
+            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+                try {
+                    Application torches = torchPuzzle.class.newInstance();
+                    Stage torchStage = new Stage();
+                    torches.start(torchStage);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
     //go west btn handler
@@ -256,9 +348,24 @@ public class GameEngine extends Application {
             int col = player1.getColumnLocation(grid, einstein);
             int row = player1.getRowLocation(grid, einstein);
             
-            if(col > 1) {
+            if(col > 0) {
                 grid.getChildren().remove(einstein);
                 grid.add(einstein, col - 1, row);
+            }
+            
+            //start torch puzzle
+            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+                try {
+                    Application torches = torchPuzzle.class.newInstance();
+                    Stage torchStage = new Stage();
+                    torches.start(torchStage);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

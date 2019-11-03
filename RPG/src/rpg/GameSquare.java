@@ -23,9 +23,14 @@ public class GameSquare extends StackPane {
     public GameSquare(boolean block) {
 
         //border for each tile - rect with no fill
-        border = new Rectangle(100, 100);
+        border = new Rectangle(60, 60);
         //removes color from rectangle
-        border.setFill(null);
+        if(block == true) {
+            border.setFill(Color.BLACK);
+        } else {
+            border.setFill(null);
+        }
+        
         //add border color to each tile
         border.setStroke(Color.BLACK);
 
