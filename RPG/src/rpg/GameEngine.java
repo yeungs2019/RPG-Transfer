@@ -39,6 +39,8 @@ public class GameEngine extends Application {
     //story display
     private Label playerMessage;
     private Label playerAlert;
+    private Label playerScore;
+    private Label playerItems;
     
     //playing grid
     private final int COL_MAX_INDEX = 6;
@@ -90,9 +92,22 @@ public class GameEngine extends Application {
         playerAlert.setAlignment(Pos.TOP_LEFT);
         playerAlert.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: blue; -fx-wrap-text:true;");
         
+        playerScore = new Label();
+        playerScore.setAlignment(Pos.TOP_LEFT);
+        playerScore.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
+        playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
         
-        //add player to start
-//        GridPane.setHalignment(start, HPos.LEFT);
+        playerItems = new Label();
+        playerItems.setAlignment(Pos.TOP_LEFT);
+        playerItems.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
+        playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
+        
+        //example of adding to Score and adding to Items
+        player1.addOneToScore(10);
+        playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+        player1.addToItemsList("teddybear");
+        player1.addToItemsList("sword");
+        playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
 
         //create 25 Gamesquare gameboard
         GameSquare square1 = new GameSquare(false);
@@ -213,7 +228,8 @@ public class GameEngine extends Application {
         GridPane.setHalignment(torchV, HPos.CENTER);
         
         //container box to hold main elements
-        HBox boardDiv = new HBox(10, start, grid);
+        VBox stats = new VBox(10, playerScore, playerItems);
+        HBox boardDiv = new HBox(10, start, grid, stats);
         VBox container = new VBox(15, playerMessage, playerAlert, boardDiv, directionBtns);
         container.setAlignment(Pos.BASELINE_LEFT);
         container.setPadding(new Insets(25));

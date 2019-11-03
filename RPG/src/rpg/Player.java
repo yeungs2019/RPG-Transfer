@@ -5,6 +5,7 @@
  */
 package rpg;
 
+import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,13 +19,16 @@ public class Player {
     
     private String mName;
     private Image mProfile;
+    private int mScore;
+    private ArrayList<String> mItems;
     
     //constructor
     public Player(String name, String profileLocation) {
         
-        mName = name;
-        
+        mName = name;      
         mProfile = new Image(profileLocation);
+        mScore = 0;
+        mItems = new ArrayList<>();
         
     }
     
@@ -42,6 +46,41 @@ public class Player {
         ImageView playerNode = new ImageView(mProfile);
         
         return playerNode;
+    }
+
+    public int getScore() {
+        return mScore;
+    }
+
+    public void setScore(int score) {
+        mScore = score;
+    }
+    
+    public int addOneToScore(int score) {   
+        mScore += score;
+        return mScore;
+    }
+    public int subtractOneFromScore(int score) {   
+        mScore -= score;
+        if (mScore <= 0) {
+            mScore = 0;
+        }
+        
+        return mScore;
+    }
+    
+    public ArrayList<String> getItems() {
+        return mItems;
+    }
+    
+    public ArrayList<String> addToItemsList (String item) {     
+        mItems.add(item);
+        return mItems;
+    }
+    
+    public ArrayList<String> removeFromItemsList (String item) {     
+        mItems.remove(item);
+        return mItems;
     }
     
     public int getColumnLocation(GridPane grid, Node player) {
