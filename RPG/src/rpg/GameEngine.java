@@ -102,13 +102,18 @@ public class GameEngine extends Application {
         playerItems.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
         playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
         
-        //example of adding to Score and adding to Items
+        //examples of adding to Score and adding to Items
         player1.addToScore(10);
+        player1.subtractFromScore(3);
         playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
         player1.addToItemsList("teddybear");
         player1.addToItemsList("sword");
+        player1.addToItemsList("bird");
+        player1.removeFromItemsList("sword");
         playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
-
+        //end examples 
+        
+        
         //create 25 Gamesquare gameboard
         GameSquare square1 = new GameSquare(false);
         GameSquare square2 = new GameSquare(false);
