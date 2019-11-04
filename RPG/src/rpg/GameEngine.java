@@ -47,7 +47,7 @@ public class GameEngine extends Application {
     private final int ROW_MAX_INDEX = 6;
     private final GridPane grid = new GridPane();
     protected final Player player1 = new Player("Einstein", "file:images/einstein.png");
-    protected final ImageView einstein = player1.getProfile();
+    private final ImageView einstein = player1.getProfile();
     
     
     @Override
