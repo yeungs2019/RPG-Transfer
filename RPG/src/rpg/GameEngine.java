@@ -37,17 +37,17 @@ public class GameEngine extends Application {
     private Button south;
     private Button west;
     //story display
-    protected Label playerMessage;
-    protected Label playerAlert;
-    protected Label playerScore;
-    protected Label playerItems;
+    Label playerMessage;
+    Label playerAlert;
+    Label playerScore;
+    Label playerItems;
     
     //playing grid
     private final int COL_MAX_INDEX = 6;
     private final int ROW_MAX_INDEX = 6;
-    private final GridPane grid = new GridPane();
-    protected final Player player1 = new Player("Einstein", "file:images/einstein.png");
-    private final ImageView einstein = player1.getProfile();
+    GridPane grid = new GridPane();
+    Player player1 = new Player("Einstein", "file:images/einstein.png");
+    ImageView einstein = player1.getProfile();
     
     
     @Override
