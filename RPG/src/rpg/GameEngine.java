@@ -235,7 +235,7 @@ public class GameEngine extends Application {
         @Override
         public void handle(ActionEvent event) {
 
-            profileImgLocation = GetInfoStage.profile("Choose Player Profile", "Click which player you want to be:");
+            profileImgLocation = GetInfoStage.profile("Choose Player Profile", "Click which player do you want to be:");
             player1 = new Player("Player 1", profileImgLocation);
             playerNode = player1.getProfile();
             GridPane.setHalignment(playerNode, HPos.CENTER);
