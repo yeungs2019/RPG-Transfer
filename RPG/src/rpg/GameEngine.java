@@ -242,7 +242,7 @@ public class GameEngine extends Application {
         container.setPadding(new Insets(25));
         
         //create Scene
-        Scene scene = new Scene(container, 900, 600);
+        Scene scene = new Scene(container, 900, 700);
         scene.getStylesheets().add("rpg-styles.css");
 
         primaryStage.setTitle("RPG Team Project");
