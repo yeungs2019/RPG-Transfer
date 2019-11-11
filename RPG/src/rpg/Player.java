@@ -48,6 +48,10 @@ public class Player {
         return playerNode;
     }
 
+    public void setProfile(String profile) {
+        mProfile = new Image(profile);
+    }
+    
     public int getScore() {
         return mScore;
     }

@@ -18,13 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -42,7 +38,6 @@ public class GameEngine extends Application {
     private Button west;
     //story display
     Label playerMessage;
-    Label playerAlert;
     Label playerScore;
     Label playerItems;
     
@@ -50,8 +45,9 @@ public class GameEngine extends Application {
     private final int COL_MAX_INDEX = 6;
     private final int ROW_MAX_INDEX = 6;
     GridPane grid = new GridPane();
-    Player player1 = new Player("Einstein", "file:images/einstein.png");
-    ImageView einstein = player1.getProfile();
+    Player player1;
+    ImageView playerNode;
+    String profileImgLocation;
     ImageView torchV;
     
     
@@ -79,8 +75,8 @@ public class GameEngine extends Application {
         west.setOnAction(new GameEngine.WestBtnHandler());
         
         //directional button controls
-        HBox directionBtns = new HBox(5, north, east, south, west, close);      
-        directionBtns.setAlignment(Pos.BASELINE_LEFT);
+        HBox directionBtns = new HBox(10, north, east, south, west, close);      
+        directionBtns.setPadding(new Insets(0, 0, 0, 65));
         
         //player message left sidebar 
         playerMessage = new Label();
@@ -88,31 +84,11 @@ public class GameEngine extends Application {
         playerMessage.setAlignment(Pos.TOP_LEFT);
         playerMessage.setText(("Click Start to Begin!"));
         
-        //display player greeting and alert messages for player
-        playerAlert = new Label();
-        playerAlert.setMaxWidth(600);
-        //note to self - this is not doing anything on the label - find out why... 
-        playerAlert.setAlignment(Pos.TOP_LEFT);
-        
         playerScore = new Label();
         playerScore.setAlignment(Pos.TOP_LEFT);
-        playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
         
         playerItems = new Label();
         playerItems.setAlignment(Pos.TOP_LEFT);
-        playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
-        
-        //examples of adding to Score and adding to Items
-        player1.addToScore(10);
-        player1.subtractFromScore(3);
-        playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
-        player1.addToItemsList("Power Boost");
-        player1.addToItemsList("Sword");
-        player1.addToItemsList("Owl");
-        player1.removeFromItemsList("Sword");
-        playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
-        //end examples 
-        
         
         //create 25 Gamesquare gameboard
         GameSquare square1 = new GameSquare(false);
@@ -223,9 +199,6 @@ public class GameEngine extends Application {
         grid.setId("board");
         grid.setStyle("-fx-background-image: url('file:images/map-look.jpg'); -fx-background-position: center center; -fx-background-repeat: no-repeat;");
         
-        GridPane.setHalignment(einstein, HPos.CENTER);
-        grid.add(einstein, 0, 0);
-        
         //add puzzle locations to the board
         Image torchIcon = new Image("file:images/flame.png");
         torchV = new ImageView(torchIcon);
@@ -237,7 +210,7 @@ public class GameEngine extends Application {
         //container box to hold main elements
         VBox stats = new VBox(10, playerScore, playerItems);
         HBox boardDiv = new HBox(10, start, grid, stats);
-        VBox container = new VBox(15, playerMessage, playerAlert, boardDiv, directionBtns);
+        VBox container = new VBox(50, playerMessage, boardDiv, directionBtns);
         container.setAlignment(Pos.BASELINE_LEFT);
         container.setPadding(new Insets(25));
         
@@ -262,7 +235,13 @@ public class GameEngine extends Application {
         @Override
         public void handle(ActionEvent event) {
 
-            playerAlert.setText(("Begin your quest, " + player1.getName() + "! Use Buttons below to move."));
+            profileImgLocation = GetInfoStage.profile("Choose Player Profile", "Click which player you want to be:");
+            player1 = new Player("Player 1", profileImgLocation);
+            playerNode = player1.getProfile();
+            GridPane.setHalignment(playerNode, HPos.CENTER);
+            grid.add(playerNode, 0, 0);
+            playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+            playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
             
             //disable go btn once player added
             start.setDisable(true);
@@ -279,16 +258,16 @@ public class GameEngine extends Application {
         @Override
         public void handle(ActionEvent event) {
             
-            int col = player1.getColumnLocation(grid, einstein);
-            int row = player1.getRowLocation(grid, einstein);
+            int col = player1.getColumnLocation(grid, playerNode);
+            int row = player1.getRowLocation(grid, playerNode);
             
             if(row > 0) {
-                grid.getChildren().remove(einstein);
-                grid.add(einstein, col, row - 1);
+                grid.getChildren().remove(playerNode);
+                grid.add(playerNode, col, row - 1);
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
                 try {
                     torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
@@ -311,16 +290,16 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            int col = player1.getColumnLocation(grid, einstein);
-            int row = player1.getRowLocation(grid, einstein);
+            int col = player1.getColumnLocation(grid, playerNode);
+            int row = player1.getRowLocation(grid, playerNode);
             
             if(col < COL_MAX_INDEX) {
-                grid.getChildren().remove(einstein);
-                grid.add(einstein, col + 1, row);
+                grid.getChildren().remove(playerNode);
+                grid.add(playerNode, col + 1, row);
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
                 try {
                     torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
@@ -341,16 +320,16 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            int col = player1.getColumnLocation(grid, einstein);
-            int row = player1.getRowLocation(grid, einstein);
+            int col = player1.getColumnLocation(grid, playerNode);
+            int row = player1.getRowLocation(grid, playerNode);
             
             if(row < ROW_MAX_INDEX) {
-                grid.getChildren().remove(einstein);
-                grid.add(einstein, col, row + 1);
+                grid.getChildren().remove(playerNode);
+                grid.add(playerNode, col, row + 1);
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
                 try {
                     torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
@@ -371,16 +350,16 @@ public class GameEngine extends Application {
         
         @Override
         public void handle(ActionEvent event) {
-            int col = player1.getColumnLocation(grid, einstein);
-            int row = player1.getRowLocation(grid, einstein);
+            int col = player1.getColumnLocation(grid, playerNode);
+            int row = player1.getRowLocation(grid, playerNode);
             
             if(col > 0) {
-                grid.getChildren().remove(einstein);
-                grid.add(einstein, col - 1, row);
+                grid.getChildren().remove(playerNode);
+                grid.add(playerNode, col - 1, row);
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
                 try {
                     torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
