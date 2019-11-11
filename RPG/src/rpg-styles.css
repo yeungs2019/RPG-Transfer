@@ -1,0 +1,39 @@
+
+.root {
+    -fx-background-image: url("file:images/root-bgd.jpg");
+    -fx-background-repeat: stretch;   
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+    -fx-font-size: 14pt;
+    -fx-text-fill:#470000;
+    -fx-font-family: "fantasy";
+  }
+
+  .label {
+      -fx-font-weight: bold;
+      -fx-wrap-text:true;
+  }
+.button {
+    -fx-background-image: url("file:images/btn-bgd.jpg");
+   -fx-background-repeat: stretch;   
+   -fx-background-position: center center;
+   -fx-background-size: cover;
+   -fx-font-size: 11pt;
+   -fx-text-fill:#470000;
+   -fx-border-color:#470000;
+    -fx-border-width: 1 2 2 1;
+    -fx-font-family: 'fantasy';
+}
+
+.button:hover {
+   -fx-text-fill:rgba(71, 0, 0, 0.55);
+}
+
+.my-rect {
+    -fx-fill: yellow;
+    -fx-stroke: green;
+    -fx-stroke-width: 5;
+    -fx-stroke-dash-array: 12 2 4 2;
+    -fx-stroke-dash-offset: 6;
+    -fx-stroke-line-cap: butt;
+}

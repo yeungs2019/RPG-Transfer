@@ -18,9 +18,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -48,6 +52,7 @@ public class GameEngine extends Application {
     GridPane grid = new GridPane();
     Player player1 = new Player("Einstein", "file:images/einstein.png");
     ImageView einstein = player1.getProfile();
+    ImageView torchV;
     
     
     @Override
@@ -56,7 +61,6 @@ public class GameEngine extends Application {
         //buttons
         start = new Button("Start");
         close = new Button("Close Game");
-        close.setStyle("-fx-color: RED");
         north = new Button("Go North");
         north.setDisable(true);
         east = new Button("Go East");
@@ -82,7 +86,6 @@ public class GameEngine extends Application {
         playerMessage = new Label();
         playerMessage.setMaxWidth(600);
         playerMessage.setAlignment(Pos.TOP_LEFT);
-        playerMessage.setStyle("-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: blue; -fx-wrap-text:true;");
         playerMessage.setText(("Click Start to Begin!"));
         
         //display player greeting and alert messages for player
@@ -90,26 +93,23 @@ public class GameEngine extends Application {
         playerAlert.setMaxWidth(600);
         //note to self - this is not doing anything on the label - find out why... 
         playerAlert.setAlignment(Pos.TOP_LEFT);
-        playerAlert.setStyle("-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: blue; -fx-wrap-text:true;");
         
         playerScore = new Label();
         playerScore.setAlignment(Pos.TOP_LEFT);
-        playerScore.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
         playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
         
         playerItems = new Label();
         playerItems.setAlignment(Pos.TOP_LEFT);
-        playerItems.setStyle("-fx-font-size: 14; -fx-font-weight: bold; -fx-wrap-text:true;");
         playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
         
         //examples of adding to Score and adding to Items
         player1.addToScore(10);
         player1.subtractFromScore(3);
         playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
-        player1.addToItemsList("teddybear");
-        player1.addToItemsList("sword");
-        player1.addToItemsList("bird");
-        player1.removeFromItemsList("sword");
+        player1.addToItemsList("Power Boost");
+        player1.addToItemsList("Sword");
+        player1.addToItemsList("Owl");
+        player1.removeFromItemsList("Sword");
         playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
         //end examples 
         
@@ -164,7 +164,7 @@ public class GameEngine extends Application {
         GameSquare square47 = new GameSquare(false);
         GameSquare square48 = new GameSquare(false);
         GameSquare square49 = new GameSquare(false);
-        GameSquare square50 = new GameSquare(false);
+        
         
         //add Gamesquares to the gameboard
         grid.add(square1, 0, 0);
@@ -220,14 +220,16 @@ public class GameEngine extends Application {
 
    
         //GridPane styles
-        grid.setPadding(new Insets(0));
+        grid.setId("board");
+        grid.setStyle("-fx-background-image: url('file:images/map-look.jpg'); -fx-background-position: center center; -fx-background-repeat: no-repeat;");
         
         GridPane.setHalignment(einstein, HPos.CENTER);
         grid.add(einstein, 0, 0);
         
         //add puzzle locations to the board
-        Image torchIcon = new Image("file:images/torch-icon.jpg");
-        ImageView torchV = new ImageView(torchIcon);
+        Image torchIcon = new Image("file:images/flame.png");
+        torchV = new ImageView(torchIcon);
+        torchV.setOpacity(0.2);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(torchV, 2, 3, 1, 1);
         GridPane.setHalignment(torchV, HPos.CENTER);
@@ -241,7 +243,7 @@ public class GameEngine extends Application {
         
         //create Scene
         Scene scene = new Scene(container, 900, 600);
-//        scene.getStylesheets().add("board.css");
+        scene.getStylesheets().add("rpg-styles.css");
 
         primaryStage.setTitle("RPG Team Project");
         primaryStage.setScene(scene);
@@ -288,6 +290,7 @@ public class GameEngine extends Application {
             //start torch puzzle
             if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
                 try {
+                    torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
                     Stage torchStage = new Stage();
                     torches.start(torchStage);
@@ -319,6 +322,7 @@ public class GameEngine extends Application {
             //start torch puzzle
             if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
                 try {
+                    torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
                     Stage torchStage = new Stage();
                     torches.start(torchStage);
@@ -348,6 +352,7 @@ public class GameEngine extends Application {
             //start torch puzzle
             if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
                 try {
+                    torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
                     Stage torchStage = new Stage();
                     torches.start(torchStage);
@@ -377,6 +382,7 @@ public class GameEngine extends Application {
             //start torch puzzle
             if(player1.getColumnLocation(grid, einstein) == 2 && player1.getRowLocation(grid, einstein) == 3) {
                 try {
+                    torchV.setOpacity(1);
                     Application torches = torchPuzzle.class.newInstance();
                     Stage torchStage = new Stage();
                     torches.start(torchStage);

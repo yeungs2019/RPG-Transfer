@@ -28,7 +28,7 @@ public class GameSquare extends StackPane {
         if(block == true) {
             border.setFill(Color.BLACK);
         } else {
-            border.setFill(null);
+            border.setFill(Color.TRANSPARENT);
         }
         
         //add border color to each tile
