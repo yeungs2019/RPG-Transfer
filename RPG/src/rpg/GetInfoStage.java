@@ -9,6 +9,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -34,6 +36,15 @@ public class GetInfoStage {
         Label msg = new Label();
         msg.setText(message);
         
+        Image dragImg = new Image("file:images/dragon.png");
+        ImageView dragIcon = new ImageView(dragImg);
+        Image wizImg = new Image("file:images/wizard.png");
+        ImageView wizIcon = new ImageView(wizImg);
+        Image trollImg = new Image("file:images/troll.png");
+        ImageView trollIcon = new ImageView(trollImg);
+        
+        
+        
         Button dragon = new Button("Dragon");
         Button wizard = new Button("Wizard");
         Button troll = new Button("Troll");
@@ -54,7 +65,14 @@ public class GetInfoStage {
             popupStage.close();
         });
         
-        HBox profiles = new HBox(10, dragon, wizard, troll);
+        VBox dragonBox = new VBox(10, dragIcon, dragon);
+        VBox wizardBox = new VBox(10, wizIcon, wizard);
+        VBox trollBox = new VBox(10, trollIcon, troll);
+        dragonBox.setAlignment(Pos.CENTER);
+        wizardBox.setAlignment(Pos.CENTER);
+        trollBox.setAlignment(Pos.CENTER);
+        
+        HBox profiles = new HBox(10, dragonBox, wizardBox, trollBox);
         profiles.setAlignment(Pos.CENTER);
                 
         VBox container = new VBox(15);
