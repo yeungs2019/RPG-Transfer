@@ -202,7 +202,7 @@ public class GameEngine extends Application {
         //add puzzle locations to the board
         Image torchIcon = new Image("file:images/flame.png");
         torchV = new ImageView(torchIcon);
-        torchV.setOpacity(0.2);
+        torchV.setOpacity(0.4);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(torchV, 2, 3, 1, 1);
         GridPane.setHalignment(torchV, HPos.CENTER);
