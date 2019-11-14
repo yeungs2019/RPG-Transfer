@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * 
  * creating a pop up stage for messages to player that need acknowledging
  */
-public class ChooseProfile {
+public class ChooseProfileModal {
     
     static String profileLocation;
     
@@ -89,7 +89,5 @@ public class ChooseProfile {
         return profileLocation;
         
     }
-    
-
-    
+       
 }

@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * 
  * creating a pop up stage for messages to player that need acknowledging
  */
-public class MessageStage {
+public class MessageModal {
     
     public static void display (String title, String message) {
            
@@ -45,7 +45,5 @@ public class MessageStage {
         popupStage.showAndWait();
         
     }
-    
-
-    
+   
 }
