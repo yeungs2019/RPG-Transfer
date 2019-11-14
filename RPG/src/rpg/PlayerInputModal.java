@@ -5,6 +5,7 @@
  */
 package rpg;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -47,6 +48,7 @@ public class PlayerInputModal {
         VBox container = new VBox(10);
         container.getChildren().addAll(mess, playerInputField, ok);
         container.setAlignment(Pos.CENTER);
+        container.setPadding(new Insets(25));
         
         Scene scene = new Scene(container, 300, 200);
         scene.getStylesheets().add("rpg-styles.css");

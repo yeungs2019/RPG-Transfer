@@ -5,6 +5,7 @@
  */
 package rpg;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -80,6 +81,7 @@ public class ChooseProfileModal {
         VBox container = new VBox(15);
         container.getChildren().addAll(msg, profiles);
         container.setAlignment(Pos.CENTER);
+        container.setPadding(new Insets(25));
         
         Scene scene = new Scene(container, 500, 400);
         scene.getStylesheets().add("rpg-styles.css");
