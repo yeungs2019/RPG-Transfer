@@ -47,6 +47,7 @@ public class GameEngine extends Application {
     GridPane grid = new GridPane();
     Player player1;
     ImageView playerNode;
+    String playerName;
     String profileImgLocation;
     ImageView torchV;
     
@@ -235,8 +236,12 @@ public class GameEngine extends Application {
         @Override
         public void handle(ActionEvent event) {
 
-            profileImgLocation = GetInfoStage.profile("Choose Player Profile", "Choose which player you want to be:");
+            //get player name
+            playerName = PlayerInputModal.playerInput("Player Name", "Enter player name:");
+            //get player profile
+            profileImgLocation = ChooseProfile.profile("Choose Player Profile", "Choose which player you want to be:");
             player1 = new Player("Player 1", profileImgLocation);
+            player1.setName(playerName);
             playerNode = player1.getProfile();
             GridPane.setHalignment(playerNode, HPos.CENTER);
             grid.add(playerNode, 0, 0);

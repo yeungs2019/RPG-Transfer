@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * 
  * creating a pop up stage for messages to player that need acknowledging
  */
-public class GetInfoStage {
+public class ChooseProfile {
     
     static String profileLocation;
     
@@ -30,49 +30,51 @@ public class GetInfoStage {
            
         Stage popupStage = new Stage();
     
+        //set up so player has to make a choice to continue or close modal
         popupStage.initModality(Modality.APPLICATION_MODAL);
         popupStage.setTitle(title);
         
+        //instruction
         Label msg = new Label();
         msg.setText(message);
         
-        Image dragImg = new Image("file:images/dragon.png");
-        ImageView dragIcon = new ImageView(dragImg);
-        Image wizImg = new Image("file:images/wizard.png");
-        ImageView wizIcon = new ImageView(wizImg);
-        Image trollImg = new Image("file:images/troll.png");
-        ImageView trollIcon = new ImageView(trollImg);
+        //create profile images
+        Image profileOneImg = new Image("file:images/axiel.png");
+        ImageView profileOneIcon = new ImageView(profileOneImg);
+        Image profileTwoImg = new Image("file:images/spykrull.png");
+        ImageView profileTwoIcon = new ImageView(profileTwoImg);
+        Image profileThreeImg = new Image("file:images/spiriticus.png");
+        ImageView profileThreeIcon = new ImageView(profileThreeImg);
         
-        
-        
-        Button dragon = new Button("Dragon");
-        Button wizard = new Button("Wizard");
-        Button troll = new Button("Troll");
+        //button for profile choice
+        Button profileOne = new Button("Axiel");
+        Button profileTwo = new Button("Spykrull");
+        Button profileThree = new Button("Spiriticus");
         
         //learning lambdas - one line can go right after the arrow - more than one line of code needs to be in curly {}
-        dragon.setOnAction(e -> {
-            profileLocation = "file:images/dragon.png";
+        profileOne.setOnAction(e -> {
+            profileLocation = "file:images/axiel.png";
             popupStage.close();
         });
         
-        wizard.setOnAction(e -> {
-            profileLocation = "file:images/wizard.png";
+        profileTwo.setOnAction(e -> {
+            profileLocation = "file:images/spykrull.png";
             popupStage.close();
         });
         
-        troll.setOnAction(e -> {
-            profileLocation = "file:images/troll.png";
+        profileThree.setOnAction(e -> {
+            profileLocation = "file:images/spiriticus.png";
             popupStage.close();
         });
         
-        VBox dragonBox = new VBox(10, dragIcon, dragon);
-        VBox wizardBox = new VBox(10, wizIcon, wizard);
-        VBox trollBox = new VBox(10, trollIcon, troll);
-        dragonBox.setAlignment(Pos.CENTER);
-        wizardBox.setAlignment(Pos.CENTER);
-        trollBox.setAlignment(Pos.CENTER);
+        VBox profileOneBox = new VBox(10, profileOneIcon, profileOne);
+        VBox profileTwoBox = new VBox(10, profileTwoIcon, profileTwo);
+        VBox profileThreeBox = new VBox(10, profileThreeIcon, profileThree);
+        profileOneBox.setAlignment(Pos.CENTER);
+        profileTwoBox.setAlignment(Pos.CENTER);
+        profileThreeBox.setAlignment(Pos.CENTER);
         
-        HBox profiles = new HBox(10, dragonBox, wizardBox, trollBox);
+        HBox profiles = new HBox(10, profileOneBox, profileTwoBox, profileThreeBox);
         profiles.setAlignment(Pos.CENTER);
                 
         VBox container = new VBox(15);
