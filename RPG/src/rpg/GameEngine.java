@@ -5,9 +5,11 @@
  */
 package rpg;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -273,19 +275,17 @@ public class GameEngine extends Application {
             
             //start torch puzzle
             if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+                
+                torchV.setOpacity(1);
+                torchPuzzle torches = new torchPuzzle();
+                Stage torchStage = new Stage();
                 try {
-                    torchV.setOpacity(1);
-                    Application torches = torchPuzzle.class.newInstance();
-                    Stage torchStage = new Stage();
                     torches.start(torchStage);
-                } catch (InstantiationException ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
+                } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+              
+            } //end start torch puzzle
             
         }
     }
@@ -305,19 +305,16 @@ public class GameEngine extends Application {
             
             //start torch puzzle
             if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+                
+                torchV.setOpacity(1);
+                torchPuzzle torches = new torchPuzzle();
+                Stage torchStage = new Stage();
                 try {
-                    torchV.setOpacity(1);
-                    Application torches = torchPuzzle.class.newInstance();
-                    Stage torchStage = new Stage();
                     torches.start(torchStage);
-                } catch (InstantiationException ex) {
+                } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+                } 
+            } //end start torch puzzle
         }
     }
     //go south btn handler
@@ -335,19 +332,15 @@ public class GameEngine extends Application {
             
             //start torch puzzle
             if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+                torchV.setOpacity(1);
+                torchPuzzle torches = new torchPuzzle();
+                Stage torchStage = new Stage();
                 try {
-                    torchV.setOpacity(1);
-                    Application torches = torchPuzzle.class.newInstance();
-                    Stage torchStage = new Stage();
                     torches.start(torchStage);
-                } catch (InstantiationException ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
+                } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            } //end start torch puzzle
         }
     }
     //go west btn handler
@@ -365,19 +358,15 @@ public class GameEngine extends Application {
             
             //start torch puzzle
             if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+                torchV.setOpacity(1);
+                torchPuzzle torches = new torchPuzzle();
+                Stage torchStage = new Stage();
                 try {
-                    torchV.setOpacity(1);
-                    Application torches = torchPuzzle.class.newInstance();
-                    Stage torchStage = new Stage();
                     torches.start(torchStage);
-                } catch (InstantiationException ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
+                } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            } //end start torch puzzle
         }
     }
     
