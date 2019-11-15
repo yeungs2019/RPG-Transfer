@@ -8,6 +8,7 @@ package rpg;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -52,8 +53,6 @@ public class torchPuzzle extends Application {
     
     // Display label to let the player know if they solved it correctly
     private Label display = new Label ("");
-    
-    // The actual player
     
     // Is the puzzle solved or not
     protected boolean solved = false;
@@ -159,6 +158,7 @@ public class torchPuzzle extends Application {
             if(isSolved())
             {
                 display.setText("You did it!");
+                // Do something here to update the score
             }
             else
                 display.setText("Something seems to be wrong...");
@@ -293,7 +293,7 @@ public class torchPuzzle extends Application {
         }
         
         // Changing the button state
-        button2State = switchThis(button3State);
+        button3State = switchThis(button3State);
         // Changing the torch imgages
         changeTorches();
         
@@ -316,7 +316,7 @@ public class torchPuzzle extends Application {
         }
         
         // Changing the button state
-        button2State = switchThis(button4State);
+        button4State = switchThis(button4State);
         // Changing the torch imgages
         changeTorches();
         

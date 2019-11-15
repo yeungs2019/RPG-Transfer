@@ -8,15 +8,19 @@ package rpg;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -49,14 +53,17 @@ public class torchPuzzle extends Application {
     private boolean button3State = false;
     private boolean button4State = true;
     
+    // Display label to let the player know if they solved it correctly
+    private Label display = new Label ("");
+    
     // Is the puzzle solved or not
     protected boolean solved = false;
     
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         // Putting the images in the program
-        litTorch = new Image(new FileInputStream ("LitTorch.jpg"));
-        unlitTorch = new Image (new FileInputStream ("UnlitTorch.jpg"));
+        litTorch = new Image("file:images/LitTorch.jpg");
+        unlitTorch = new Image("file:images/UnlitTorch.jpg");
         
         torch1Img.setImage(unlitTorch);
         torch2Img.setImage(unlitTorch);
@@ -80,25 +87,26 @@ public class torchPuzzle extends Application {
         torch5Img.setFitWidth(275);
         
         // Creating the buttons for the user to press
-        Button button1 = new Button("Button 1");
+        Button button1 = new Button("Push strange stone 1");
         button1.setOnAction(new button1Handler());
-        Button button2 = new Button("Button 2");
+        Button button2 = new Button("Push strange stone 2");
         button2.setOnAction(new button2Handler());
-        Button button3 = new Button("Button 3");
+        Button button3 = new Button("Push strange stone 3");
         button3.setOnAction(new button3Handler());
-        Button button4 = new Button("Button 4");
+        Button button4 = new Button("Push strange stone 4");
         button4.setOnAction(new button4Handler());
+        Button submitButton = new Button("Pull the lever");
+        submitButton.setOnAction(new buttonSubmitHandler());
         
+        // Setting the label to look nice
+        display.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         
-        
-        
-        
-       
         // Creating some boxes to hold the objects
-        HBox buttonHolder = new HBox(10, button1, button2, button3, button4);
+        HBox buttonHolder = new HBox(10, button1, button2, button3, 
+                button4, submitButton);
         torches = new HBox(10, torch1Img, torch2Img, torch3Img, 
                 torch4Img, torch5Img);
-        VBox screen = new VBox(10, torches, buttonHolder);
+        VBox screen = new VBox(10, torches, buttonHolder, display);
         
         // Setting the allignment
         buttonHolder.setAlignment(Pos.CENTER);
@@ -112,9 +120,6 @@ public class torchPuzzle extends Application {
         primaryStage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -148,6 +153,20 @@ public class torchPuzzle extends Application {
         @Override
         public void handle (ActionEvent event) {
             pushButton4();
+        }
+    }
+    
+    class buttonSubmitHandler implements EventHandler<ActionEvent> {
+        
+        @Override
+        public void handle (ActionEvent event) {
+            if(isSolved())
+            {
+                display.setText("You did it!");
+                // Do something here to update the score
+            }
+            else
+                display.setText("Something seems to be wrong...");
         }
     }
     
@@ -279,7 +298,7 @@ public class torchPuzzle extends Application {
         }
         
         // Changing the button state
-        button2State = switchThis(button3State);
+        button3State = switchThis(button3State);
         // Changing the torch imgages
         changeTorches();
         
@@ -302,7 +321,7 @@ public class torchPuzzle extends Application {
         }
         
         // Changing the button state
-        button2State = switchThis(button4State);
+        button4State = switchThis(button4State);
         // Changing the torch imgages
         changeTorches();
         
