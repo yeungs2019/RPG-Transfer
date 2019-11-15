@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -48,6 +49,11 @@ public class torchPuzzle extends Application {
     private boolean button2State = true;
     private boolean button3State = false;
     private boolean button4State = true;
+    
+    // Display label to let the player know if they solved it correctly
+    private Label display = new Label ("");
+    
+    // The actual player
     
     // Is the puzzle solved or not
     protected boolean solved = false;
@@ -88,17 +94,15 @@ public class torchPuzzle extends Application {
         button3.setOnAction(new button3Handler());
         Button button4 = new Button("Button 4");
         button4.setOnAction(new button4Handler());
+        Button submitButton = new Button("Submit");
+        submitButton.setOnAction(new buttonSubmitHandler());
         
-        
-        
-        
-        
-       
         // Creating some boxes to hold the objects
-        HBox buttonHolder = new HBox(10, button1, button2, button3, button4);
+        HBox buttonHolder = new HBox(10, button1, button2, button3, 
+                button4, submitButton);
         torches = new HBox(10, torch1Img, torch2Img, torch3Img, 
                 torch4Img, torch5Img);
-        VBox screen = new VBox(10, torches, buttonHolder);
+        VBox screen = new VBox(10, torches, buttonHolder, display);
         
         // Setting the allignment
         buttonHolder.setAlignment(Pos.CENTER);
@@ -112,9 +116,6 @@ public class torchPuzzle extends Application {
         primaryStage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -148,6 +149,19 @@ public class torchPuzzle extends Application {
         @Override
         public void handle (ActionEvent event) {
             pushButton4();
+        }
+    }
+    
+    class buttonSubmitHandler implements EventHandler<ActionEvent> {
+        
+        @Override
+        public void handle (ActionEvent event) {
+            if(isSolved())
+            {
+                display.setText("You did it!");
+            }
+            else
+                display.setText("Something seems to be wrong...");
         }
     }
     
