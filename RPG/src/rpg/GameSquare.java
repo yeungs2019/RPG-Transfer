@@ -32,7 +32,7 @@ public class GameSquare extends StackPane {
         }
         
         //add border color to each tile
-        border.setStroke(Color.BLACK);
+        border.setStroke(Color.TRANSPARENT);
 
         //centers everything within the stackpane (single tile)
         setAlignment(Pos.CENTER);
