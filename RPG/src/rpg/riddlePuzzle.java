@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -60,12 +61,25 @@ public class riddlePuzzle extends Application {
         textBox.setMaxWidth(250);
         textBox.setAlignment(Pos.CENTER);
         
+        // Leave button
+        Button leave = new Button ("Leave");
+        leave.setOnAction(e-> {
+            primaryStage.close();
+        });
+        
+        // HBox for submit and leave
+        HBox buttonBox = new HBox (submit, leave);
+        buttonBox.setAlignment(Pos.CENTER);
+        
         // Whole Screen to be displayed
-        VBox screen = new VBox (prompt, textBox, submit, display);
+        VBox screen = new VBox (prompt, textBox, buttonBox, display);
         display.setFont(Font.font("Verdana", 20));
         screen.setAlignment(Pos.CENTER);
         
-        Scene scene = new Scene(screen, 300, 250);
+        Scene scene = new Scene(screen, 625, 500);
+        
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
+        scene.getStylesheets().add("rpg-styles.css");
         
         primaryStage.setTitle("A wall with with a strange inscription");
         primaryStage.setScene(scene);

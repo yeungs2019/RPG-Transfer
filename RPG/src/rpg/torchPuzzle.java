@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -97,13 +98,17 @@ public class torchPuzzle extends Application {
         button4.setOnAction(new button4Handler());
         Button submitButton = new Button("Pull the lever");
         submitButton.setOnAction(new buttonSubmitHandler());
+        Button leave = new Button ("Leave");
+        leave.setOnAction(e-> {
+            primaryStage.close();
+        });
         
         // Setting the label to look nice
         display.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         
         // Creating some boxes to hold the objects
         HBox buttonHolder = new HBox(10, button1, button2, button3, 
-                button4, submitButton);
+                button4, submitButton, leave);
         torches = new HBox(10, torch1Img, torch2Img, torch3Img, 
                 torch4Img, torch5Img);
         VBox screen = new VBox(10, torches, buttonHolder, display);
@@ -113,7 +118,10 @@ public class torchPuzzle extends Application {
         torches.setAlignment(Pos.CENTER);
         screen.setAlignment(Pos.CENTER);
         
-        Scene scene = new Scene(screen, 300, 250);
+        Scene scene = new Scene(screen, 1375, 600);
+        
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
+        scene.getStylesheets().add("rpg-styles.css");
         
         primaryStage.setTitle("A wall of Torches");
         primaryStage.setScene(scene);
