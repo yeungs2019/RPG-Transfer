@@ -8,6 +8,7 @@ package rpg;
 import java.io.FileNotFoundException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,6 +73,31 @@ public class ringPuzzle extends Application {
         blueRing = new Image("file:images/blue.jpg");
         greenRing = new Image("file:images/green.jpg");
         yellowRing = new Image("file:images/yellow.jpg");
+        
+        pillar1Ring1.setFitWidth(100);
+        pillar1Ring1.setFitHeight(25);
+        pillar1Ring2.setFitWidth(100);
+        pillar1Ring2.setFitHeight(25);
+        pillar1Ring3.setFitWidth(100);
+        pillar1Ring3.setFitHeight(25);
+        pillar1Ring4.setFitWidth(100);
+        pillar1Ring4.setFitHeight(25);
+        pillar2Ring1.setFitWidth(100);
+        pillar2Ring1.setFitHeight(25);
+        pillar2Ring2.setFitWidth(100);
+        pillar2Ring2.setFitHeight(25);
+        pillar2Ring3.setFitWidth(100);
+        pillar2Ring3.setFitHeight(25);
+        pillar2Ring4.setFitWidth(100);
+        pillar2Ring4.setFitHeight(25);
+        pillar3Ring1.setFitWidth(100);
+        pillar3Ring1.setFitHeight(25);
+        pillar3Ring2.setFitWidth(100);
+        pillar3Ring2.setFitHeight(25);
+        pillar3Ring3.setFitWidth(100);
+        pillar3Ring3.setFitHeight(25);
+        pillar3Ring4.setFitWidth(100);
+        pillar3Ring4.setFitHeight(25);
         
         // Setting start point and giving directions
         Label description = new Label ("In front of you are several pillars with "
@@ -153,7 +179,15 @@ public class ringPuzzle extends Application {
                 pillarSelectionBox, userInteractionBox);
         
         //Setting Allignment for look
-        
+        description.setAlignment(Pos.CENTER);
+        display.setAlignment(Pos.CENTER);
+        pillars.setAlignment(Pos.CENTER);
+        ringSelection.setAlignment(Pos.CENTER);
+        pillarSelection.setAlignment(Pos.CENTER);
+        ringSelectionBox.setAlignment(Pos.CENTER);
+        pillarSelectionBox.setAlignment(Pos.CENTER);
+        userInteractionBox.setAlignment(Pos.CENTER);
+        screen.setAlignment(Pos.CENTER);
         
         // Creating the scene and displaying
         Scene scene = new Scene(screen, 1375, 600);
