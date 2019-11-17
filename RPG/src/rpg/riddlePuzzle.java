@@ -44,7 +44,7 @@ public class riddlePuzzle extends Application {
         Label line3 = new Label ("Gnaws iron, bites steel");
         Label line4 = new Label ("Grinds hard stones to meal");
         Label line5 = new Label ("Slays king, ruins town");
-        Label line6 = new Label ("And beats mountain down");
+        Label line6 = new Label ("And beats mountain down...");
         
         line1.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         line2.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
@@ -68,7 +68,7 @@ public class riddlePuzzle extends Application {
         });
         
         // HBox for submit and leave
-        HBox buttonBox = new HBox (submit, leave);
+        HBox buttonBox = new HBox (10, submit, leave);
         buttonBox.setAlignment(Pos.CENTER);
         
         // Whole Screen to be displayed
