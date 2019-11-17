@@ -223,7 +223,7 @@ public class GameEngine extends Application {
         
         //puzzle 3
         Image riddleIcon = new Image("file:images/puzzle-icon.png");
-        riddleV = new ImageView(chessIcon);
+        riddleV = new ImageView(riddleIcon);
         riddleV.setOpacity(0.7);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(riddleV, 0, 6, 1, 1);
@@ -359,7 +359,7 @@ public class GameEngine extends Application {
                 } 
             } //end start torch puzzle
             
-                        //start chess puzzle
+            //start chess puzzle
             if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
                 
                 chessV.setOpacity(1);
@@ -410,7 +410,7 @@ public class GameEngine extends Application {
                 }
             } //end start torch puzzle
             
-                        //start chess puzzle
+            //start chess puzzle
             if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
                 
                 chessV.setOpacity(1);
@@ -461,7 +461,7 @@ public class GameEngine extends Application {
                 }
             } //end start torch puzzle
             
-                        //start chess puzzle
+            //start chess puzzle
             if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
                 
                 chessV.setOpacity(1);
