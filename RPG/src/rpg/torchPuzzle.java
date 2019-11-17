@@ -59,6 +59,7 @@ public class torchPuzzle extends Application {
     
     // Is the puzzle solved or not
     protected boolean solved = false;
+    private boolean isFinished = false;
     
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
@@ -168,13 +169,17 @@ public class torchPuzzle extends Application {
         
         @Override
         public void handle (ActionEvent event) {
-            if(isSolved())
+            if(isSolved() && !(isFinished))
             {
                 display.setText("You did it!");
                 // Do something here to update the score
+                
+                isFinished = true;
             }
+            else if (isSolved() && isFinished)
+                    display.setText("There is nothing else to do here.");
             else
-                display.setText("Something seems to be wrong...");
+                display.setText("Something is wrong...");
         }
     }
     
@@ -200,8 +205,8 @@ public class torchPuzzle extends Application {
     
     public boolean isSolved() {
         // Check to see if all torches are on
-        if(torch1 == true && torch1 == true && torch1 == true && 
-                torch1 == true && torch1 == true)
+        if(torch1 == true && torch2 == true && torch3 == true && 
+                torch4 == true && torch5 == true)
         {
             solved = true;
         }

@@ -42,6 +42,9 @@ public class chessPuzzle extends Application {
     // Move number tracker
     int move = 0;
     
+    // Resoponse label
+    Label response;
+    
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         
@@ -67,7 +70,7 @@ public class chessPuzzle extends Application {
         Label direction2 = new Label ("Ex. A2 Pawn A3");
                 
         // Feedback for user moves
-        Label response = new Label ("");
+        response = new Label ("");
         
         // Leave button
         Button leave = new Button ("Leave");
@@ -77,6 +80,7 @@ public class chessPuzzle extends Application {
         
         // Submit button
         Button submit = new Button ("Pass turn");
+        submit.setOnAction(new submitHandler());
         
         // Textbox to enter move
         input = new TextField();
@@ -111,8 +115,42 @@ public class chessPuzzle extends Application {
         
         @Override
         public void handle (ActionEvent event) {
-            String userString = input.getText().trim();
-            // Parse and compare string here
+            
+                // Creating a single string to hold our input 
+                // without excess whitespace
+                String userString = input.getText().trim();
+
+                // Splitting the string by the spaces
+                String splitString[] = userString.split(" ", 3);
+                
+                // Checking if the move is correct or not
+                if(splitString[0].equalsIgnoreCase("E5") && 
+                        (splitString[1].equalsIgnoreCase("Knight") ||
+                         splitString[1].equalsIgnoreCase("K") ||
+                         splitString[1].equalsIgnoreCase("Horse") ||
+                         splitString[1].equalsIgnoreCase("H")) &&
+                         splitString[2].equalsIgnoreCase("G6") &&
+                        move == 0)
+                {
+                    response.setText("The opponent's king magically "
+                            + " moves into place");
+                    imageDisplay.setImage(move1);
+                    move++;
+                }
+                else if (splitString[0].equalsIgnoreCase("G6") && 
+                        (splitString[1].equalsIgnoreCase("Knight") ||
+                         splitString[1].equalsIgnoreCase("K") ||
+                         splitString[1].equalsIgnoreCase("Horse") ||
+                         splitString[1].equalsIgnoreCase("H")) &&
+                         splitString[2].equalsIgnoreCase("H8") && 
+                        move == 1)
+                {
+                    response.setText("Checkmate!");
+                    imageDisplay.setImage(checkmate);
+                    move++;
+                }
+                else
+                    response.setText("Nothing seems to happen...");
         }
     }
     
