@@ -54,6 +54,14 @@ public class GameEngine extends Application {
     ImageView torchV;
     ImageView chessV;
     ImageView riddleV;
+    ImageView torchSolvedV;
+    ImageView riddleSolvedV;
+    ImageView chessSolvedV;
+    
+    //puzzles
+    torchPuzzle torchpuzzle = new torchPuzzle();
+    chessPuzzle chesspuzzle = new chessPuzzle();
+    riddlePuzzle riddlepuzzle = new riddlePuzzle();
     
     
     @Override
@@ -229,6 +237,19 @@ public class GameEngine extends Application {
         grid.add(riddleV, 0, 6, 1, 1);
         GridPane.setHalignment(riddleV, HPos.CENTER);
         
+        //create puzzle is solved icons
+        Image torchpuzSolvedIcon = new Image("file:images/torch-complete.png");
+        torchSolvedV = new ImageView(torchpuzSolvedIcon);
+        GridPane.setHalignment(torchSolvedV, HPos.CENTER);
+        
+        Image riddlepuzSolvedIcon = new Image("file:images/riddle-complete.png");
+        riddleSolvedV = new ImageView(riddlepuzSolvedIcon);
+        GridPane.setHalignment(riddleSolvedV, HPos.CENTER);
+        
+        Image chesspuzSolvedIcon = new Image("file:images/chess-complete.png");
+        chessSolvedV = new ImageView(chesspuzSolvedIcon);
+        GridPane.setHalignment(chessSolvedV, HPos.CENTER);
+        
         //container box to hold main elements
         VBox stats = new VBox(10, playerScore, playerItems);
         HBox boardDiv = new HBox(10, start, grid, stats);
@@ -293,24 +314,31 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
                 
                 torchV.setOpacity(1);
-                torchPuzzle torches = new torchPuzzle();
                 Stage torchStage = new Stage();
                 try {
-                    torches.start(torchStage);
+                    torchpuzzle.start(torchStage);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
               
             } //end start torch puzzle
             
+            //if torch puzzled solved indicate complete
+            if (torchpuzzle.isSolved()) {
+               
+                grid.getChildren().remove(torchV);
+                grid.getChildren().remove(torchSolvedV);
+                grid.add(torchSolvedV, 2, 3, 1, 1);
+
+            }
+            
             //start chess puzzle
             if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
                 
                 chessV.setOpacity(1);
-                chessPuzzle chesspuzzle = new chessPuzzle();
                 Stage chessStage = new Stage();
                 try {
                     chesspuzzle.start(chessStage);
@@ -324,11 +352,18 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
                 
                 riddleV.setOpacity(1);
-                riddlePuzzle riddlepuzzle = new riddlePuzzle();
                 Stage riddleStage = new Stage();
                 riddlepuzzle.start(riddleStage);
               
             } //end start riddle puzzle
+            
+//            if (riddlepuzzle.checkAnswer()) {
+//                
+//                grid.getChildren().remove(riddleV);
+//                grid.getChildren().remove(riddleSolvedV);
+//                grid.add(riddleSolvedV, 0, 6, 1, 1);
+//                
+//            }
             
         }
     }
@@ -347,23 +382,31 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
                 
                 torchV.setOpacity(1);
-                torchPuzzle torches = new torchPuzzle();
                 Stage torchStage = new Stage();
                 try {
-                    torches.start(torchStage);
+                    torchpuzzle.start(torchStage);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-                } 
+                }
+              
             } //end start torch puzzle
+            
+            //if torch puzzled solved indicate complete
+            if (torchpuzzle.isSolved()) {
+               
+                grid.getChildren().remove(torchV);
+                grid.getChildren().remove(torchSolvedV);
+                grid.add(torchSolvedV, 2, 3, 1, 1);
+
+            }
             
             //start chess puzzle
             if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
                 
                 chessV.setOpacity(1);
-                chessPuzzle chesspuzzle = new chessPuzzle();
                 Stage chessStage = new Stage();
                 try {
                     chesspuzzle.start(chessStage);
@@ -377,11 +420,18 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
                 
                 riddleV.setOpacity(1);
-                riddlePuzzle riddlepuzzle = new riddlePuzzle();
                 Stage riddleStage = new Stage();
                 riddlepuzzle.start(riddleStage);
               
             } //end start riddle puzzle
+            
+//            if (riddlepuzzle.checkAnswer()) {
+//                
+//                grid.getChildren().remove(riddleV);
+//                grid.getChildren().remove(riddleSolvedV);
+//                grid.add(riddleSolvedV, 0, 6, 1, 1);
+//                
+//            }
             
         }
     }
@@ -399,22 +449,31 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
+                
                 torchV.setOpacity(1);
-                torchPuzzle torches = new torchPuzzle();
                 Stage torchStage = new Stage();
                 try {
-                    torches.start(torchStage);
+                    torchpuzzle.start(torchStage);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
+              
             } //end start torch puzzle
+            
+            //if torch puzzled solved indicate complete
+            if (torchpuzzle.isSolved()) {
+               
+                grid.getChildren().remove(torchV);
+                grid.getChildren().remove(torchSolvedV);
+                grid.add(torchSolvedV, 2, 3, 1, 1);
+
+            }
             
             //start chess puzzle
             if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
                 
                 chessV.setOpacity(1);
-                chessPuzzle chesspuzzle = new chessPuzzle();
                 Stage chessStage = new Stage();
                 try {
                     chesspuzzle.start(chessStage);
@@ -428,11 +487,18 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
                 
                 riddleV.setOpacity(1);
-                riddlePuzzle riddlepuzzle = new riddlePuzzle();
                 Stage riddleStage = new Stage();
                 riddlepuzzle.start(riddleStage);
               
             } //end start riddle puzzle
+            
+//            if (riddlepuzzle.checkAnswer()) {
+//                
+//                grid.getChildren().remove(riddleV);
+//                grid.getChildren().remove(riddleSolvedV);
+//                grid.add(riddleSolvedV, 0, 6, 1, 1);
+//                
+//            }
             
         }
     }
@@ -450,22 +516,31 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3) {
+            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
+                
                 torchV.setOpacity(1);
-                torchPuzzle torches = new torchPuzzle();
                 Stage torchStage = new Stage();
                 try {
-                    torches.start(torchStage);
+                    torchpuzzle.start(torchStage);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
+              
             } //end start torch puzzle
+            
+            //if torch puzzled solved indicate complete
+            if (torchpuzzle.isSolved()) {
+               
+                grid.getChildren().remove(torchV);
+                grid.getChildren().remove(torchSolvedV);
+                grid.add(torchSolvedV, 2, 3, 1, 1);
+
+            }
             
             //start chess puzzle
             if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
                 
                 chessV.setOpacity(1);
-                chessPuzzle chesspuzzle = new chessPuzzle();
                 Stage chessStage = new Stage();
                 try {
                     chesspuzzle.start(chessStage);
@@ -479,11 +554,18 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
                 
                 riddleV.setOpacity(1);
-                riddlePuzzle riddlepuzzle = new riddlePuzzle();
                 Stage riddleStage = new Stage();
                 riddlepuzzle.start(riddleStage);
               
             } //end start riddle puzzle
+            
+//            if (riddlepuzzle.checkAnswer()) {
+//                
+//                grid.getChildren().remove(riddleV);
+//                grid.getChildren().remove(riddleSolvedV);
+//                grid.add(riddleSolvedV, 0, 6, 1, 1);
+//                
+//            }
             
         }
     }
