@@ -115,4 +115,9 @@ public class riddlePuzzle extends Application {
         
         return solved;
     }
+    
+    public boolean isSolved()
+    {
+        return solved;
+    }
 }

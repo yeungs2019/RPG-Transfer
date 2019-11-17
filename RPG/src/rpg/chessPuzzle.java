@@ -45,6 +45,9 @@ public class chessPuzzle extends Application {
     // Resoponse label
     Label response;
     
+    // Solved boolean
+    protected boolean solved = false;
+    
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         
@@ -147,6 +150,7 @@ public class chessPuzzle extends Application {
                 {
                     response.setText("Checkmate!");
                     imageDisplay.setImage(checkmate);
+                    solved = true;
                     move++;
                 }
                 else
@@ -154,4 +158,8 @@ public class chessPuzzle extends Application {
         }
     }
     
+    public boolean isSolved()
+    {
+        return solved;
+    }
 }
