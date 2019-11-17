@@ -351,17 +351,15 @@ public class GameEngine extends Application {
               
             } //end start torch puzzle
             
-            //if torch puzzled solved indicate complete
-            if (torchpuzzle.isSolved()) {
-               
+            //if torch puzzled solved indicate complete on board
+            if (torchpuzzle.isSolved()) {    
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
-
             }
             
             //start chess puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5 && !chesspuzzle.isSolved()) {
                 
                 chessV.setOpacity(1);
                 Stage chessStage = new Stage();
@@ -373,8 +371,15 @@ public class GameEngine extends Application {
               
             } //end start chess puzzle
             
+            //mark chess puzzle complete on board if solved
+            if (chesspuzzle.isSolved()) {      
+                grid.getChildren().remove(chessV);
+                grid.getChildren().remove(chessSolvedV);
+                grid.add(chessSolvedV, 4, 5, 1, 1);    
+            }
+            
             //start riddle puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6 && !riddlepuzzle.isSolved()) {
                 
                 riddleV.setOpacity(1);
                 Stage riddleStage = new Stage();
@@ -382,13 +387,12 @@ public class GameEngine extends Application {
               
             } //end start riddle puzzle
             
-//            if (riddlepuzzle.checkAnswer()) {
-//                
-//                grid.getChildren().remove(riddleV);
-//                grid.getChildren().remove(riddleSolvedV);
-//                grid.add(riddleSolvedV, 0, 6, 1, 1);
-//                
-//            }
+            //mark riddle puzzle complete on board if solved
+            if (riddlepuzzle.isSolved()) {  
+                grid.getChildren().remove(riddleV);
+                grid.getChildren().remove(riddleSolvedV);
+                grid.add(riddleSolvedV, 0, 6, 1, 1); 
+            }
             
         }
     }
@@ -419,17 +423,15 @@ public class GameEngine extends Application {
               
             } //end start torch puzzle
             
-            //if torch puzzled solved indicate complete
+            //if torch puzzled solved indicate complete on board
             if (torchpuzzle.isSolved()) {
-               
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
-
             }
             
             //start chess puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5 && !chesspuzzle.isSolved()) {
                 
                 chessV.setOpacity(1);
                 Stage chessStage = new Stage();
@@ -438,11 +440,18 @@ public class GameEngine extends Application {
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
-              
+                
             } //end start chess puzzle
             
+            //mark chess puzzle complete on board if solved
+            if (chesspuzzle.isSolved()) {      
+                grid.getChildren().remove(chessV);
+                grid.getChildren().remove(chessSolvedV);
+                grid.add(chessSolvedV, 4, 5, 1, 1);    
+            }
+            
             //start riddle puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6 && !riddlepuzzle.isSolved()) {
                 
                 riddleV.setOpacity(1);
                 Stage riddleStage = new Stage();
@@ -450,13 +459,12 @@ public class GameEngine extends Application {
               
             } //end start riddle puzzle
             
-//            if (riddlepuzzle.checkAnswer()) {
-//                
-//                grid.getChildren().remove(riddleV);
-//                grid.getChildren().remove(riddleSolvedV);
-//                grid.add(riddleSolvedV, 0, 6, 1, 1);
-//                
-//            }
+            //mark riddle puzzle complete on board if solved
+            if (riddlepuzzle.isSolved()) { 
+                grid.getChildren().remove(riddleV);
+                grid.getChildren().remove(riddleSolvedV);
+                grid.add(riddleSolvedV, 0, 6, 1, 1);   
+            }
             
         }
     }
@@ -486,17 +494,15 @@ public class GameEngine extends Application {
               
             } //end start torch puzzle
             
-            //if torch puzzled solved indicate complete
-            if (torchpuzzle.isSolved()) {
-               
+            //if torch puzzled solved indicate complete on board
+            if (torchpuzzle.isSolved()) {  
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
-
             }
             
             //start chess puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5 && !chesspuzzle.isSolved()) {
                 
                 chessV.setOpacity(1);
                 Stage chessStage = new Stage();
@@ -508,8 +514,15 @@ public class GameEngine extends Application {
               
             } //end start chess puzzle
             
+            //mark chess puzzle complete on board if solved
+            if (chesspuzzle.isSolved()) {      
+                grid.getChildren().remove(chessV);
+                grid.getChildren().remove(chessSolvedV);
+                grid.add(chessSolvedV, 4, 5, 1, 1);    
+            }
+            
             //start riddle puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6 && !riddlepuzzle.isSolved()) {
                 
                 riddleV.setOpacity(1);
                 Stage riddleStage = new Stage();
@@ -517,13 +530,12 @@ public class GameEngine extends Application {
               
             } //end start riddle puzzle
             
-//            if (riddlepuzzle.checkAnswer()) {
-//                
-//                grid.getChildren().remove(riddleV);
-//                grid.getChildren().remove(riddleSolvedV);
-//                grid.add(riddleSolvedV, 0, 6, 1, 1);
-//                
-//            }
+            //mark riddle puzzle complete on board if solved
+            if (riddlepuzzle.isSolved()) {   
+                grid.getChildren().remove(riddleV);
+                grid.getChildren().remove(riddleSolvedV);
+                grid.add(riddleSolvedV, 0, 6, 1, 1);    
+            }
             
         }
     }
@@ -553,17 +565,15 @@ public class GameEngine extends Application {
               
             } //end start torch puzzle
             
-            //if torch puzzled solved indicate complete
-            if (torchpuzzle.isSolved()) {
-               
+            //if torch puzzled solved indicate complete on board
+            if (torchpuzzle.isSolved()) {  
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
-
             }
             
             //start chess puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5 && !chesspuzzle.isSolved()) {
                 
                 chessV.setOpacity(1);
                 Stage chessStage = new Stage();
@@ -575,8 +585,15 @@ public class GameEngine extends Application {
               
             } //end start chess puzzle
             
+            //mark chess puzzle complete on board if solved
+            if (chesspuzzle.isSolved()) {   
+                grid.getChildren().remove(chessV);
+                grid.getChildren().remove(chessSolvedV);
+                grid.add(chessSolvedV, 4, 5, 1, 1);  
+            }
+            
             //start riddle puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6 && !riddlepuzzle.isSolved()) {
                 
                 riddleV.setOpacity(1);
                 Stage riddleStage = new Stage();
@@ -584,13 +601,12 @@ public class GameEngine extends Application {
               
             } //end start riddle puzzle
             
-//            if (riddlepuzzle.checkAnswer()) {
-//                
-//                grid.getChildren().remove(riddleV);
-//                grid.getChildren().remove(riddleSolvedV);
-//                grid.add(riddleSolvedV, 0, 6, 1, 1);
-//                
-//            }
+            //mark riddle puzzle complete on board if solved
+            if (riddlepuzzle.isSolved()) {
+                grid.getChildren().remove(riddleV);
+                grid.getChildren().remove(riddleSolvedV);
+                grid.add(riddleSolvedV, 0, 6, 1, 1);   
+            }
             
         }
     }
