@@ -64,7 +64,7 @@ public class chessPuzzle extends Application {
         // Prompt for user
         Label description1 = new Label ("You approach a small chessboard "
                 + "atop a little table.");
-        Label description2 = new Label ("The pieces seemed to be places as if the"
+        Label description2 = new Label ("The pieces seem to be placed as if the"
                 + " game has already begun...");
         
         // Directions for user input

@@ -7,6 +7,7 @@ package rpg;
 
 import java.io.FileNotFoundException;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,15 +45,21 @@ public class ringPuzzle extends Application {
     ImageView pillar3Ring4 = new ImageView();
     
     // Labels for things
-    Label ringSelection;
-    Label pillarSelection;
-    Label response;
+    Label ringSelection = new Label();
+    Label pillarSelection = new Label();
+    Label display = new Label();
     
     // Variables to keep track of ring locations (Pillar wise)
     int redRingLoc = 1;
     int blueRingLoc = 1;
     int greenRingLoc = 1;
     int yellowRingLoc = 1;
+    
+    // Ring selection variable
+    String ringSelected = "";
+    
+    // Pillar selection variable
+    String pillarSelected = "";
     
     // Solved boolean
     protected boolean solved = false;
@@ -78,12 +85,12 @@ public class ringPuzzle extends Application {
                 + " to a pillar that has no rings, or only a yellow ring");
         Label promptYellow = new Label ("The yellow ring can only safely be "
                 + " moved to a pillar that has no rings");
-        Label directions = new Label ("'It seems I need to move all the rings"
-                + " to the leftmost pillar'");
+        Label prompt = new Label ("'It seems I need to move all the rings"
+                + " to the rightmost pillar'");
         
         ringSelection.setText("");
         pillarSelection.setText("");
-        response.setText("");
+        display.setText("");
         resetRings();
         
         // Buttons to select the rings
@@ -106,8 +113,11 @@ public class ringPuzzle extends Application {
         // Reset button
         Button reset = new Button("Reset Rings");
         
+        // Submit button
+        Button submit = new Button("Submit arrangement");
+        
         // Get directions button
-        Button getDriections = new Button ("Get directions");
+        Button getDirections = new Button ("Get directions");
         
         // First some boxes to hold the images
         
@@ -131,10 +141,22 @@ public class ringPuzzle extends Application {
                 selectGreen, selectYellow);
         
         // Pillar selection box
-        HBox pillarSelectionBox = new HBox
+        HBox pillarSelectionBox = new HBox (10, pillar1, pillar2, pillar3);
+        
+        // Leave and submit button box
+        HBox userInteractionBox = new HBox (10, move, reset, submit, 
+                getDirections, leave);
+        
+        // Total screen box
+        VBox screen = new VBox (10, description, display, pillars, 
+                ringSelection, pillarSelection, ringSelectionBox, 
+                pillarSelectionBox, userInteractionBox);
+        
+        //Setting Allignment for look
+        
         
         // Creating the scene and displaying
-        Scene scene = new Scene(null, 1375, 600);
+        Scene scene = new Scene(screen, 1375, 600);
         
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         scene.getStylesheets().add("rpg-styles.css");

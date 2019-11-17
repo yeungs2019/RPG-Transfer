@@ -56,6 +56,7 @@ public class torchPuzzle extends Application {
     
     // Display label to let the player know if they solved it correctly
     private Label display = new Label ("");
+    private Label prompt = new Label ("");
     
     // Is the puzzle solved or not
     protected boolean solved = false;
@@ -88,6 +89,10 @@ public class torchPuzzle extends Application {
         torch5Img.setFitHeight(400);
         torch5Img.setFitWidth(275);
         
+        // Lavel for prompt
+        prompt.setText("A wall of torches stand before you. They all seem"
+                + " to be unlit...");
+        
         // Creating the buttons for the user to press
         Button button1 = new Button("Push strange stone 1");
         button1.setOnAction(new button1Handler());
@@ -112,7 +117,7 @@ public class torchPuzzle extends Application {
                 button4, submitButton, leave);
         torches = new HBox(10, torch1Img, torch2Img, torch3Img, 
                 torch4Img, torch5Img);
-        VBox screen = new VBox(10, torches, buttonHolder, display);
+        VBox screen = new VBox(10, prompt, torches, buttonHolder, display);
         
         // Setting the allignment
         buttonHolder.setAlignment(Pos.CENTER);
@@ -138,6 +143,7 @@ public class torchPuzzle extends Application {
         @Override
         public void handle (ActionEvent event) {
             pushButton1();
+            prompt.setText("");
         }
     }
     
@@ -146,6 +152,7 @@ public class torchPuzzle extends Application {
         @Override
         public void handle (ActionEvent event) {
             pushButton2();
+            prompt.setText("");
         }
     }
     
@@ -154,6 +161,7 @@ public class torchPuzzle extends Application {
         @Override
         public void handle (ActionEvent event) {
             pushButton3();
+            prompt.setText("");
         }
     }
     
@@ -162,6 +170,7 @@ public class torchPuzzle extends Application {
         @Override
         public void handle (ActionEvent event) {
             pushButton4();
+            prompt.setText("");
         }
     }
     
