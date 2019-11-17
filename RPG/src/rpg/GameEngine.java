@@ -60,6 +60,12 @@ public class GameEngine extends Application {
     ImageView riddleSolvedV;
     ImageView chessSolvedV;
     
+    private boolean torchpuzzleComplete;
+    private boolean riddlepuzzleComplete;
+    private boolean puzzleComplete;
+    private boolean chesspuzzleComplete;
+
+    
     //puzzles
     torchPuzzle torchpuzzle = new torchPuzzle();
     chessPuzzle chesspuzzle = new chessPuzzle();
@@ -356,6 +362,12 @@ public class GameEngine extends Application {
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
+                //update player score
+                if (torchpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    torchpuzzleComplete = true;
+                }
             }
             
             //start chess puzzle
@@ -375,7 +387,13 @@ public class GameEngine extends Application {
             if (chesspuzzle.isSolved()) {      
                 grid.getChildren().remove(chessV);
                 grid.getChildren().remove(chessSolvedV);
-                grid.add(chessSolvedV, 4, 5, 1, 1);    
+                grid.add(chessSolvedV, 4, 5, 1, 1);
+                //update player score
+                if (chesspuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    chesspuzzleComplete = true;
+                }
             }
             
             //start riddle puzzle
@@ -391,7 +409,14 @@ public class GameEngine extends Application {
             if (riddlepuzzle.isSolved()) {  
                 grid.getChildren().remove(riddleV);
                 grid.getChildren().remove(riddleSolvedV);
-                grid.add(riddleSolvedV, 0, 6, 1, 1); 
+                grid.add(riddleSolvedV, 0, 6, 1, 1);
+                
+                //update player score
+                if (riddlepuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    riddlepuzzleComplete = true;
+                }
             }
             
         }
@@ -428,6 +453,12 @@ public class GameEngine extends Application {
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
+                //update player score
+                if (torchpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    torchpuzzleComplete = true;
+                }
             }
             
             //start chess puzzle
@@ -447,7 +478,13 @@ public class GameEngine extends Application {
             if (chesspuzzle.isSolved()) {      
                 grid.getChildren().remove(chessV);
                 grid.getChildren().remove(chessSolvedV);
-                grid.add(chessSolvedV, 4, 5, 1, 1);    
+                grid.add(chessSolvedV, 4, 5, 1, 1);
+                //update player score
+                if (chesspuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    chesspuzzleComplete = true;
+                }
             }
             
             //start riddle puzzle
@@ -463,7 +500,13 @@ public class GameEngine extends Application {
             if (riddlepuzzle.isSolved()) { 
                 grid.getChildren().remove(riddleV);
                 grid.getChildren().remove(riddleSolvedV);
-                grid.add(riddleSolvedV, 0, 6, 1, 1);   
+                grid.add(riddleSolvedV, 0, 6, 1, 1); 
+                //update player score
+                if (riddlepuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    riddlepuzzleComplete = true;
+                }
             }
             
         }
@@ -499,6 +542,12 @@ public class GameEngine extends Application {
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
+                //update player score
+                if (torchpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    torchpuzzleComplete = true;
+                }
             }
             
             //start chess puzzle
@@ -518,7 +567,13 @@ public class GameEngine extends Application {
             if (chesspuzzle.isSolved()) {      
                 grid.getChildren().remove(chessV);
                 grid.getChildren().remove(chessSolvedV);
-                grid.add(chessSolvedV, 4, 5, 1, 1);    
+                grid.add(chessSolvedV, 4, 5, 1, 1); 
+                //update player score
+                if (chesspuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    chesspuzzleComplete = true;
+                }
             }
             
             //start riddle puzzle
@@ -534,7 +589,13 @@ public class GameEngine extends Application {
             if (riddlepuzzle.isSolved()) {   
                 grid.getChildren().remove(riddleV);
                 grid.getChildren().remove(riddleSolvedV);
-                grid.add(riddleSolvedV, 0, 6, 1, 1);    
+                grid.add(riddleSolvedV, 0, 6, 1, 1); 
+                //update player score
+                if (riddlepuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    riddlepuzzleComplete = true;
+                }
             }
             
         }
@@ -570,6 +631,12 @@ public class GameEngine extends Application {
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
                 grid.add(torchSolvedV, 2, 3, 1, 1);
+                //update player score
+                if (torchpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    torchpuzzleComplete = true;
+                }
             }
             
             //start chess puzzle
@@ -589,7 +656,13 @@ public class GameEngine extends Application {
             if (chesspuzzle.isSolved()) {   
                 grid.getChildren().remove(chessV);
                 grid.getChildren().remove(chessSolvedV);
-                grid.add(chessSolvedV, 4, 5, 1, 1);  
+                grid.add(chessSolvedV, 4, 5, 1, 1); 
+                //update player score
+                if (chesspuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    chesspuzzleComplete = true;
+                }
             }
             
             //start riddle puzzle
@@ -598,14 +671,21 @@ public class GameEngine extends Application {
                 riddleV.setOpacity(1);
                 Stage riddleStage = new Stage();
                 riddlepuzzle.start(riddleStage);
-              
+             
             } //end start riddle puzzle
             
             //mark riddle puzzle complete on board if solved
             if (riddlepuzzle.isSolved()) {
                 grid.getChildren().remove(riddleV);
                 grid.getChildren().remove(riddleSolvedV);
-                grid.add(riddleSolvedV, 0, 6, 1, 1);   
+                grid.add(riddleSolvedV, 0, 6, 1, 1);
+                //update player score
+                if (riddlepuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    riddlepuzzleComplete = true;
+                }
+                
             }
             
         }
