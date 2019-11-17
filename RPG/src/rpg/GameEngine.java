@@ -38,7 +38,9 @@ public class GameEngine extends Application {
     private Button east;
     private Button south;
     private Button west;
-    //story display
+    private GridPane userBtns = new GridPane();
+    
+    //board display
     Label playerMessage;
     Label playerScore;
     Label playerItems;
@@ -67,16 +69,26 @@ public class GameEngine extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        //buttons
+        //buttons        
         start = new Button("Start");
-        close = new Button("Close Game");
-        north = new Button("Go North");
+        
+        close = new Button();
+        close.setId("closeBtn");
+        
+        north = new Button();
+        north.setId("upBtn");
         north.setDisable(true);
-        east = new Button("Go East");
-        east.setDisable(true);
-        south = new Button("Go South");
+        
+        south = new Button();
+        south.setId("downBtn");
         south.setDisable(true);
-        west = new Button("Go West");
+        
+        east = new Button();
+        east.setId("rightBtn");
+        east.setDisable(true);
+
+        west = new Button();
+        west.setId("leftBtn");
         west.setDisable(true);
         
         //button Event Handlers
@@ -87,9 +99,22 @@ public class GameEngine extends Application {
         south.setOnAction(new GameEngine.SouthBtnHandler());
         west.setOnAction(new GameEngine.WestBtnHandler());
         
-        //directional button controls
-        HBox directionBtns = new HBox(10, north, east, south, west, close);      
-        directionBtns.setPadding(new Insets(0, 0, 0, 65));
+        //directional button controls gridpane
+        userBtns.add(north, 1, 0);
+        userBtns.add(south, 1, 2);
+        userBtns.add(east, 2, 1);
+        userBtns.add(west, 0, 1);
+        userBtns.add(close, 1, 1);
+        
+        //align horzontal center in cell
+        GridPane.setHalignment(north, HPos.CENTER);
+        GridPane.setHalignment(south, HPos.CENTER);
+        GridPane.setHalignment(east, HPos.CENTER);
+        GridPane.setHalignment(west, HPos.CENTER);
+        GridPane.setHalignment(close, HPos.CENTER);
+        
+        HBox directionBtns = new HBox(10, userBtns);
+        directionBtns.setPadding(new Insets(75, 0, 0, 0));
         
         //player message left sidebar 
         playerMessage = new Label();
@@ -251,9 +276,9 @@ public class GameEngine extends Application {
         GridPane.setHalignment(chessSolvedV, HPos.CENTER);
         
         //container box to hold main elements
-        VBox stats = new VBox(10, playerScore, playerItems);
+        VBox stats = new VBox(30, playerScore, playerItems, directionBtns);
         HBox boardDiv = new HBox(10, start, grid, stats);
-        VBox container = new VBox(50, playerMessage, boardDiv, directionBtns);
+        VBox container = new VBox(50, playerMessage, boardDiv);
         container.setAlignment(Pos.BASELINE_LEFT);
         container.setPadding(new Insets(25));
         

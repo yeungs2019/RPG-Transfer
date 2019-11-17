@@ -37,3 +37,40 @@
     -fx-stroke-dash-offset: 6;
     -fx-stroke-line-cap: butt;
 }
+
+#upBtn {
+    -fx-graphic: url("file:images/up.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-color: none;
+    -fx-border-width: none;
+}
+#downBtn {
+    -fx-graphic: url("file:images/down.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-color: none;
+    -fx-border-width: none;
+}
+#rightBtn {
+    -fx-graphic: url("file:images/right.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-color: none;
+    -fx-border-width: none;
+}
+#leftBtn {
+    -fx-graphic: url("file:images/left.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-color: none;
+    -fx-border-width: none;
+}
+#closeBtn {
+    -fx-graphic: url("file:images/close.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-color: none;
+    -fx-border-width: none;
+    -fx-margin-top: 300px;
+}
