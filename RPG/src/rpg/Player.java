@@ -85,14 +85,14 @@ public class Player {
     
     public int getColumnLocation(GridPane grid, Node player) {
        
-       int col = grid.getColumnIndex(player);
+       int col = GridPane.getColumnIndex(player);
        
        return col;
     }
    
     public int getRowLocation(GridPane grid, Node player) {
        
-       int row = grid.getRowIndex(player);
+       int row = GridPane.getRowIndex(player);
 
         return row;
     }

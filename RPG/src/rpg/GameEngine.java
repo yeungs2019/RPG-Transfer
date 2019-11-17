@@ -52,6 +52,8 @@ public class GameEngine extends Application {
     String playerName;
     String profileImgLocation;
     ImageView torchV;
+    ImageView chessV;
+    ImageView riddleV;
     
     
     @Override
@@ -203,12 +205,29 @@ public class GameEngine extends Application {
         grid.setStyle("-fx-background-image: url('file:images/map-look.jpg'); -fx-background-position: center center; -fx-background-repeat: no-repeat;");
         
         //add puzzle locations to the board
-        Image torchIcon = new Image("file:images/flame.png");
+        //puzzle 1
+        Image torchIcon = new Image("file:images/puzzle-icon.png");
         torchV = new ImageView(torchIcon);
-        torchV.setOpacity(0.4);
+        torchV.setOpacity(0.7);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(torchV, 2, 3, 1, 1);
         GridPane.setHalignment(torchV, HPos.CENTER);
+        
+        //puzzle 2
+        Image chessIcon = new Image("file:images/puzzle-icon.png");
+        chessV = new ImageView(chessIcon);
+        chessV.setOpacity(0.7);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(chessV, 4, 5, 1, 1);
+        GridPane.setHalignment(chessV, HPos.CENTER);
+        
+        //puzzle 3
+        Image riddleIcon = new Image("file:images/puzzle-icon.png");
+        riddleV = new ImageView(chessIcon);
+        riddleV.setOpacity(0.7);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(riddleV, 0, 6, 1, 1);
+        GridPane.setHalignment(riddleV, HPos.CENTER);
         
         //container box to hold main elements
         VBox stats = new VBox(10, playerScore, playerItems);
@@ -287,6 +306,30 @@ public class GameEngine extends Application {
               
             } //end start torch puzzle
             
+            //start chess puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+                
+                chessV.setOpacity(1);
+                chessPuzzle chesspuzzle = new chessPuzzle();
+                Stage chessStage = new Stage();
+                try {
+                    chesspuzzle.start(chessStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start chess puzzle
+            
+            //start riddle puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+                
+                riddleV.setOpacity(1);
+                riddlePuzzle riddlepuzzle = new riddlePuzzle();
+                Stage riddleStage = new Stage();
+                riddlepuzzle.start(riddleStage);
+              
+            } //end start riddle puzzle
+            
         }
     }
     
@@ -315,6 +358,31 @@ public class GameEngine extends Application {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 } 
             } //end start torch puzzle
+            
+                        //start chess puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+                
+                chessV.setOpacity(1);
+                chessPuzzle chesspuzzle = new chessPuzzle();
+                Stage chessStage = new Stage();
+                try {
+                    chesspuzzle.start(chessStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start chess puzzle
+            
+            //start riddle puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+                
+                riddleV.setOpacity(1);
+                riddlePuzzle riddlepuzzle = new riddlePuzzle();
+                Stage riddleStage = new Stage();
+                riddlepuzzle.start(riddleStage);
+              
+            } //end start riddle puzzle
+            
         }
     }
     //go south btn handler
@@ -341,6 +409,31 @@ public class GameEngine extends Application {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } //end start torch puzzle
+            
+                        //start chess puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+                
+                chessV.setOpacity(1);
+                chessPuzzle chesspuzzle = new chessPuzzle();
+                Stage chessStage = new Stage();
+                try {
+                    chesspuzzle.start(chessStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start chess puzzle
+            
+            //start riddle puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+                
+                riddleV.setOpacity(1);
+                riddlePuzzle riddlepuzzle = new riddlePuzzle();
+                Stage riddleStage = new Stage();
+                riddlepuzzle.start(riddleStage);
+              
+            } //end start riddle puzzle
+            
         }
     }
     //go west btn handler
@@ -367,6 +460,31 @@ public class GameEngine extends Application {
                     Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } //end start torch puzzle
+            
+                        //start chess puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 5) {
+                
+                chessV.setOpacity(1);
+                chessPuzzle chesspuzzle = new chessPuzzle();
+                Stage chessStage = new Stage();
+                try {
+                    chesspuzzle.start(chessStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start chess puzzle
+            
+            //start riddle puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 0 && player1.getRowLocation(grid, playerNode) == 6) {
+                
+                riddleV.setOpacity(1);
+                riddlePuzzle riddlepuzzle = new riddlePuzzle();
+                Stage riddleStage = new Stage();
+                riddlepuzzle.start(riddleStage);
+              
+            } //end start riddle puzzle
+            
         }
     }
     

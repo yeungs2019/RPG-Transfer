@@ -16,8 +16,7 @@ import javafx.scene.shape.Rectangle;
  */
 public class GameSquare extends StackPane {
     
-    private Rectangle border;
-    private boolean isBlocked;
+    private final Rectangle border;
     
     //constructor
     public GameSquare(boolean block) {
@@ -39,13 +38,11 @@ public class GameSquare extends StackPane {
 
         getChildren().addAll(border);
         
-        isBlocked = block;
     }
     
     //methods
     public void setPlayerBlock() {
         border.setFill(Color.BLACK);
-        isBlocked = true;
     }
     
 }
