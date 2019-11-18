@@ -7,13 +7,14 @@
     -fx-font-size: 14pt;
     -fx-text-fill:#470000;
     -fx-font-family: "fantasy";
+    -fx-focus-color: transparent;
   }
 
   .label {
       -fx-font-weight: bold;
       -fx-wrap-text:true;
   }
-.button {
+.button, .button:focus, .button:active {
     -fx-background-image: url("file:images/btn-bgd.jpg");
    -fx-background-repeat: stretch;   
    -fx-background-position: center center;
@@ -23,6 +24,7 @@
    -fx-border-color:#470000;
     -fx-border-width: 1 2 2 1;
     -fx-font-family: 'fantasy';
+    -fx-outline:none;
 }
 
 .button:hover {

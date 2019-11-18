@@ -53,16 +53,20 @@ public class GameEngine extends Application {
     ImageView playerNode;
     String playerName;
     String profileImgLocation;
+    //puzzle icons 
     ImageView torchV;
     ImageView chessV;
     ImageView riddleV;
+    ImageView anagramV;
+    //solved icons
     ImageView torchSolvedV;
     ImageView riddleSolvedV;
     ImageView chessSolvedV;
+    ImageView anagramSolvedV;
     
     private boolean torchpuzzleComplete;
     private boolean riddlepuzzleComplete;
-    private boolean puzzleComplete;
+    private boolean anagrampuzzleComplete;
     private boolean chesspuzzleComplete;
 
     
@@ -70,6 +74,7 @@ public class GameEngine extends Application {
     torchPuzzle torchpuzzle = new torchPuzzle();
     chessPuzzle chesspuzzle = new chessPuzzle();
     riddlePuzzle riddlepuzzle = new riddlePuzzle();
+    anagramPuzzle anagrampuzzle = new anagramPuzzle();
     
     
     @Override
@@ -126,7 +131,7 @@ public class GameEngine extends Application {
         playerMessage = new Label();
         playerMessage.setMaxWidth(900);
         playerMessage.setAlignment(Pos.TOP_LEFT);
-        playerMessage.setText("Search the board for puzzles to solve and items to collect. Click start!");
+        playerMessage.setText("Search for puzzles & items to find treasures. Need 100pts to Win!");
         
         playerScore = new Label();
         playerScore.setAlignment(Pos.TOP_LEFT);
@@ -268,18 +273,30 @@ public class GameEngine extends Application {
         grid.add(riddleV, 0, 6, 1, 1);
         GridPane.setHalignment(riddleV, HPos.CENTER);
         
+        //puzzle 4
+        Image anagramIcon = new Image("file:images/puzzle-icon.png");
+        anagramV = new ImageView(anagramIcon);
+        anagramV.setOpacity(0.7);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(anagramV, 5, 1, 1, 1);
+        GridPane.setHalignment(anagramV, HPos.CENTER);
+        
         //create puzzle is solved icons
-        Image torchpuzSolvedIcon = new Image("file:images/torch-complete.png");
+        Image torchpuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
         torchSolvedV = new ImageView(torchpuzSolvedIcon);
         GridPane.setHalignment(torchSolvedV, HPos.CENTER);
         
-        Image riddlepuzSolvedIcon = new Image("file:images/riddle-complete.png");
+        Image riddlepuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
         riddleSolvedV = new ImageView(riddlepuzSolvedIcon);
         GridPane.setHalignment(riddleSolvedV, HPos.CENTER);
         
-        Image chesspuzSolvedIcon = new Image("file:images/chess-complete.png");
+        Image chesspuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
         chessSolvedV = new ImageView(chesspuzSolvedIcon);
         GridPane.setHalignment(chessSolvedV, HPos.CENTER);
+        
+        Image anagrampuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
+        anagramSolvedV = new ImageView(anagrampuzSolvedIcon);
+        GridPane.setHalignment(anagramSolvedV, HPos.CENTER);
         
         //container box to hold main elements
         VBox stats = new VBox(30, playerScore, playerItems, directionBtns);
@@ -419,6 +436,29 @@ public class GameEngine extends Application {
                 }
             }
             
+            //start anagram puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
+                
+                anagramV.setOpacity(1);
+                Stage riddleStage = new Stage();
+                anagrampuzzle.start(riddleStage);
+              
+            } //end start anagram puzzle
+            
+            //mark riddle puzzle complete on board if solved
+            if (anagrampuzzle.isSolved()) {  
+                grid.getChildren().remove(anagramV);
+                grid.getChildren().remove(anagramSolvedV);
+                grid.add(anagramSolvedV, 5, 1, 1, 1);
+                
+                //update player score
+                if (anagrampuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    anagrampuzzleComplete = true;
+                }
+            }
+            
         }
     }
     
@@ -506,6 +546,29 @@ public class GameEngine extends Application {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
                     riddlepuzzleComplete = true;
+                }
+            }
+            
+            //start anagram puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
+                
+                anagramV.setOpacity(1);
+                Stage riddleStage = new Stage();
+                anagrampuzzle.start(riddleStage);
+              
+            } //end start anagram puzzle
+            
+            //mark riddle puzzle complete on board if solved
+            if (anagrampuzzle.isSolved()) {  
+                grid.getChildren().remove(anagramV);
+                grid.getChildren().remove(anagramSolvedV);
+                grid.add(anagramSolvedV, 5, 1, 1, 1);
+                
+                //update player score
+                if (anagrampuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    anagrampuzzleComplete = true;
                 }
             }
             
@@ -598,6 +661,29 @@ public class GameEngine extends Application {
                 }
             }
             
+            //start anagram puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
+                
+                anagramV.setOpacity(1);
+                Stage riddleStage = new Stage();
+                anagrampuzzle.start(riddleStage);
+              
+            } //end start anagram puzzle
+            
+            //mark riddle puzzle complete on board if solved
+            if (anagrampuzzle.isSolved()) {  
+                grid.getChildren().remove(anagramV);
+                grid.getChildren().remove(anagramSolvedV);
+                grid.add(anagramSolvedV, 5, 1, 1, 1);
+                
+                //update player score
+                if (anagrampuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    anagrampuzzleComplete = true;
+                }
+            }
+            
         }
     }
     //go west btn handler
@@ -686,6 +772,29 @@ public class GameEngine extends Application {
                     riddlepuzzleComplete = true;
                 }
                 
+            }
+            
+            //start anagram puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
+                
+                anagramV.setOpacity(1);
+                Stage riddleStage = new Stage();
+                anagrampuzzle.start(riddleStage);
+              
+            } //end start anagram puzzle
+            
+            //mark riddle puzzle complete on board if solved
+            if (anagrampuzzle.isSolved()) {  
+                grid.getChildren().remove(anagramV);
+                grid.getChildren().remove(anagramSolvedV);
+                grid.add(anagramSolvedV, 5, 1, 1, 1);
+                
+                //update player score
+                if (anagrampuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    anagrampuzzleComplete = true;
+                }
             }
             
         }
