@@ -25,6 +25,7 @@
     -fx-border-width: 1 2 2 1;
     -fx-font-family: 'fantasy';
     -fx-outline:none;
+    -fx-cursor: hand;
 }
 
 .button:hover {
