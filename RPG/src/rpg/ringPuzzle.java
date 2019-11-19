@@ -198,10 +198,10 @@ public class ringPuzzle extends Application {
         screen.setAlignment(Pos.CENTER);
         
         // Creating the scene and displaying
-        Scene scene = new Scene(screen, 1375, 600);
+        Scene scene = new Scene(screen, 750, 600);
         
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        scene.getStylesheets().add("rpg-styles.css");
+        //primaryStage.initModality(Modality.APPLICATION_MODAL);
+        //scene.getStylesheets().add("rpg-styles.css");
         
         primaryStage.setTitle("A series of pillars with"
                 + " several rings attached.");
@@ -314,7 +314,7 @@ public class ringPuzzle extends Application {
                 yellowRingLoc == 3)
         {
             solved = true;
-            display.setText("Youd did it!");
+            display.setText("You did it!");
         }
         else
         {
@@ -328,7 +328,7 @@ public class ringPuzzle extends Application {
         return solved;
     }
     
-    public boolean redLogic() {
+    public void redLogic() {
         
         if(ringSelected == "RED" && pillarSelected == "PILLAR 1")
             redRingLoc = 1;
@@ -339,10 +339,10 @@ public class ringPuzzle extends Application {
         
         checkImg();
         
-        return true;
+        return;
     }
     
-    public boolean blueLogic() {
+    public void blueLogic() {
         
         if(ringSelected == "BLUE" && pillarSelected == "PILLAR 1")
             blueRingLoc = 1;
@@ -353,10 +353,10 @@ public class ringPuzzle extends Application {
         
         checkImg();
         
-        return true;
+        return;
     }
     
-    public boolean greenLogic() {
+    public void greenLogic() {
         
         if(ringSelected == "GREEN" && pillarSelected == "PILLAR 1")
             greenRingLoc = 1;
@@ -367,10 +367,10 @@ public class ringPuzzle extends Application {
         
         checkImg();
         
-        return true;
+        return;
     }
     
-    public boolean yellowLogic() {
+    public void yellowLogic() {
         
         if(ringSelected == "YELLOW" && pillarSelected == "PILLAR 1")
             yellowRingLoc = 1;
@@ -381,12 +381,65 @@ public class ringPuzzle extends Application {
         
         checkImg();
         
-        return true;
+        return;
     }
     
-    public void puzzleLogic() {
-            // Todo stuff here...
-            return;
+    public void puzzleLogicPre() {
+        
+        redLogic();
+        
+        if(redRingLoc != blueRingLoc)
+        {
+            blueLogic();
+            puzzleLogicBlue();
+        }
+        
+        if(redRingLoc != greenRingLoc && blueRingLoc != greenRingLoc)
+        {
+            greenLogic();
+            puzzleLogicGreen();
+        }
+        
+        if(redRingLoc != yellowRingLoc && blueRingLoc != yellowRingLoc &&
+                greenRingLoc != yellowRingLoc)
+        {
+            yellowLogic();
+            puzzleLogicYellow();
+        }
+        
+        return;
+    }
+    
+    public void puzzleLogicBlue () {
+        
+        if(redRingLoc == blueRingLoc)
+        {
+            resetRings();
+            display.setText("The rings overloaded!");
+        }
+        
+        return;
+    }
+    
+    public void puzzleLogicGreen() {
+        
+        if (redRingLoc == greenRingLoc || blueRingLoc == greenRingLoc)
+        {
+            resetRings();
+            display.setText("The rings overloaded!");
+        }
+        
+        return;
+    }
+    
+    public void puzzleLogicYellow() {
+        
+        if(redRingLoc == yellowRingLoc || blueRingLoc == yellowRingLoc ||
+                greenRingLoc == yellowRingLoc)
+        {
+            resetRings();
+            display.setText("The rings overloaded!");
+        }
     }
     
     class directionHandler implements EventHandler<ActionEvent> {
@@ -521,12 +574,8 @@ public class ringPuzzle extends Application {
         
         @Override
         public void handle (ActionEvent event) {
-            redLogic();
-            blueLogic();
-            greenLogic();
-            yellowLogic();
-            
-            puzzleLogic();
+            display.setText("");
+            puzzleLogicPre();
         }
     }
 }

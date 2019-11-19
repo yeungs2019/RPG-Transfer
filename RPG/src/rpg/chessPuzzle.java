@@ -56,8 +56,9 @@ public class chessPuzzle extends Application {
         move1 = new Image("file:images/move1.JPG");
         checkmate = new Image("file:images/checkmate.JPG");
         
-        // Setting the starting look for the app
+        // Setting the starting look for the app and setting start move
         imageDisplay.setImage(boardStart);
+        move = 0;
         imageDisplay.setFitWidth(500);
         imageDisplay.setFitHeight(500);
         
@@ -78,6 +79,7 @@ public class chessPuzzle extends Application {
         // Leave button
         Button leave = new Button ("Leave");
         leave.setOnAction(e-> {
+            move = 0;
             primaryStage.close();
         });
         
