@@ -6,7 +6,6 @@
     -fx-background-size: cover;
     -fx-font-size: 14pt;
     -fx-text-fill:#470000;
-    -fx-font-family: "fantasy";
     -fx-focus-color: transparent;
   }
 
@@ -23,7 +22,6 @@
    -fx-text-fill:#470000;
    -fx-border-color:#470000;
     -fx-border-width: 1 2 2 1;
-    -fx-font-family: 'fantasy';
     -fx-outline:none;
     -fx-cursor: hand;
 }
