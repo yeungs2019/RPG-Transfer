@@ -15,7 +15,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +38,7 @@ public class GameEngine extends Application {
     private Button east;
     private Button south;
     private Button west;
-    private GridPane userBtns = new GridPane();
+    private final GridPane userBtns = new GridPane();
     
     //board display
     Label playerMessage;
@@ -59,16 +58,20 @@ public class GameEngine extends Application {
     ImageView chessV;
     ImageView riddleV;
     ImageView anagramV;
+    ImageView ringV;
     //solved icons
     ImageView torchSolvedV;
     ImageView riddleSolvedV;
     ImageView chessSolvedV;
     ImageView anagramSolvedV;
+    ImageView ringSolvedV;
     
+    //puzzle complete booleans
     private boolean torchpuzzleComplete;
     private boolean riddlepuzzleComplete;
     private boolean anagrampuzzleComplete;
     private boolean chesspuzzleComplete;
+    private boolean ringpuzzleComplete;
 
     
     //puzzles
@@ -76,6 +79,7 @@ public class GameEngine extends Application {
     chessPuzzle chesspuzzle = new chessPuzzle();
     riddlePuzzle riddlepuzzle = new riddlePuzzle();
     anagramPuzzle anagrampuzzle = new anagramPuzzle();
+    ringPuzzle ringpuzzle = new ringPuzzle();
     
     
     @Override
@@ -128,7 +132,7 @@ public class GameEngine extends Application {
         HBox directionBtns = new HBox(10, userBtns);
         directionBtns.setPadding(new Insets(75, 0, 0, 0));
         
-        //player message left sidebar 
+        //player message top banner 
         playerMessage = new Label();
         playerMessage.setMaxWidth(900);
         playerMessage.setAlignment(Pos.TOP_LEFT);
@@ -255,7 +259,7 @@ public class GameEngine extends Application {
         torchV = new ImageView(torchIcon);
         torchV.setOpacity(0.7);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
-        grid.add(torchV, 2, 3, 1, 1);
+        grid.add(torchV, 1, 2, 1, 1);
         GridPane.setHalignment(torchV, HPos.CENTER);
         
         //puzzle 2
@@ -282,6 +286,14 @@ public class GameEngine extends Application {
         grid.add(anagramV, 5, 1, 1, 1);
         GridPane.setHalignment(anagramV, HPos.CENTER);
         
+        //puzzle 5
+        Image ringIcon = new Image("file:images/puzzle-icon.png");
+        ringV = new ImageView(ringIcon);
+        ringV.setOpacity(0.7);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(ringV, 3, 3, 1, 1);
+        GridPane.setHalignment(ringV, HPos.CENTER);
+        
         //create puzzle is solved icons
         Image torchpuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
         torchSolvedV = new ImageView(torchpuzSolvedIcon);
@@ -299,6 +311,10 @@ public class GameEngine extends Application {
         anagramSolvedV = new ImageView(anagrampuzSolvedIcon);
         GridPane.setHalignment(anagramSolvedV, HPos.CENTER);
         
+        Image ringpuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
+        ringSolvedV = new ImageView(ringpuzSolvedIcon);
+        GridPane.setHalignment(ringSolvedV, HPos.CENTER);
+        
         //container box to hold main elements
         VBox stats = new VBox(30, playerScore, playerItems, directionBtns);
         HBox boardDiv = new HBox(10, start, grid, stats);
@@ -308,12 +324,12 @@ public class GameEngine extends Application {
         
         //create Scene
         Scene scene = new Scene(container, 900, 700);
+        scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Actor");
         scene.getStylesheets().add("rpg-styles.css");
 
         primaryStage.setTitle("RPG Team Project");
         primaryStage.setScene(scene);
         primaryStage.show();
-
            
     }
     
@@ -339,7 +355,7 @@ public class GameEngine extends Application {
             playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
             playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
             
-            //disable go btn once player added
+            //disable start btn once player added
             start.setDisable(true);
             north.setDisable(false);
             east.setDisable(false);
@@ -363,7 +379,7 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
+            if(player1.getColumnLocation(grid, playerNode) == 1 && player1.getRowLocation(grid, playerNode) == 2 && !torchpuzzle.isSolved()) {
                 
                 torchV.setOpacity(1);
                 Stage torchStage = new Stage();
@@ -379,11 +395,19 @@ public class GameEngine extends Application {
             if (torchpuzzle.isSolved()) {    
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
-                grid.add(torchSolvedV, 2, 3, 1, 1);
+                grid.add(torchSolvedV, 1, 2, 1, 1);
                 //update player score
                 if (torchpuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     torchpuzzleComplete = true;
                 }
             }
@@ -410,6 +434,14 @@ public class GameEngine extends Application {
                 if (chesspuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     chesspuzzleComplete = true;
                 }
             }
@@ -433,6 +465,14 @@ public class GameEngine extends Application {
                 if (riddlepuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     riddlepuzzleComplete = true;
                 }
             }
@@ -441,12 +481,12 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
                 
                 anagramV.setOpacity(1);
-                Stage riddleStage = new Stage();
-                anagrampuzzle.start(riddleStage);
+                Stage anagramStage = new Stage();
+                anagrampuzzle.start(anagramStage);
               
             } //end start anagram puzzle
             
-            //mark riddle puzzle complete on board if solved
+            //mark anagram puzzle complete on board if solved
             if (anagrampuzzle.isSolved()) {  
                 grid.getChildren().remove(anagramV);
                 grid.getChildren().remove(anagramSolvedV);
@@ -456,7 +496,49 @@ public class GameEngine extends Application {
                 if (anagrampuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     anagrampuzzleComplete = true;
+                }
+            }
+            
+            //start ring puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 3 && player1.getRowLocation(grid, playerNode) == 3 && !ringpuzzle.getSolved()) {
+                
+                ringV.setOpacity(1);
+                Stage ringStage = new Stage();
+                try {
+                    ringpuzzle.start(ringStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start ring puzzle
+            
+            //mark ring puzzle complete on board if solved
+            if (ringpuzzle.getSolved()) {      
+                grid.getChildren().remove(ringV);
+                grid.getChildren().remove(ringSolvedV);
+                grid.add(ringSolvedV, 3, 3, 1, 1);
+                //update player score
+                if (ringpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
+                    ringpuzzleComplete = true;
                 }
             }
             
@@ -477,7 +559,7 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
+            if(player1.getColumnLocation(grid, playerNode) == 1 && player1.getRowLocation(grid, playerNode) == 2 && !torchpuzzle.isSolved()) {
                 
                 torchV.setOpacity(1);
                 Stage torchStage = new Stage();
@@ -493,11 +575,19 @@ public class GameEngine extends Application {
             if (torchpuzzle.isSolved()) {
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
-                grid.add(torchSolvedV, 2, 3, 1, 1);
+                grid.add(torchSolvedV, 1, 2, 1, 1);
                 //update player score
                 if (torchpuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     torchpuzzleComplete = true;
                 }
             }
@@ -524,6 +614,14 @@ public class GameEngine extends Application {
                 if (chesspuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     chesspuzzleComplete = true;
                 }
             }
@@ -546,6 +644,14 @@ public class GameEngine extends Application {
                 if (riddlepuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     riddlepuzzleComplete = true;
                 }
             }
@@ -554,8 +660,8 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
                 
                 anagramV.setOpacity(1);
-                Stage riddleStage = new Stage();
-                anagrampuzzle.start(riddleStage);
+                Stage anagramStage = new Stage();
+                anagrampuzzle.start(anagramStage);
               
             } //end start anagram puzzle
             
@@ -569,12 +675,55 @@ public class GameEngine extends Application {
                 if (anagrampuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     anagrampuzzleComplete = true;
+                }
+            }
+            
+            //start ring puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 3 && player1.getRowLocation(grid, playerNode) == 3 && !ringpuzzle.getSolved()) {
+                
+                ringV.setOpacity(1);
+                Stage ringStage = new Stage();
+                try {
+                    ringpuzzle.start(ringStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start ring puzzle
+            
+            //mark ring puzzle complete on board if solved
+            if (ringpuzzle.getSolved()) {      
+                grid.getChildren().remove(ringV);
+                grid.getChildren().remove(ringSolvedV);
+                grid.add(ringSolvedV, 3, 3, 1, 1);
+                //update player score
+                if (ringpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
+                    ringpuzzleComplete = true;
                 }
             }
             
         }
     }
+    
     //go south btn handler
     class SouthBtnHandler implements EventHandler<ActionEvent> {
         
@@ -589,7 +738,7 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
+            if(player1.getColumnLocation(grid, playerNode) == 1 && player1.getRowLocation(grid, playerNode) == 2 && !torchpuzzle.isSolved()) {
                 
                 torchV.setOpacity(1);
                 Stage torchStage = new Stage();
@@ -605,11 +754,19 @@ public class GameEngine extends Application {
             if (torchpuzzle.isSolved()) {  
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
-                grid.add(torchSolvedV, 2, 3, 1, 1);
+                grid.add(torchSolvedV, 1, 2, 1, 1);
                 //update player score
                 if (torchpuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     torchpuzzleComplete = true;
                 }
             }
@@ -636,6 +793,14 @@ public class GameEngine extends Application {
                 if (chesspuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     chesspuzzleComplete = true;
                 }
             }
@@ -658,6 +823,14 @@ public class GameEngine extends Application {
                 if (riddlepuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     riddlepuzzleComplete = true;
                 }
             }
@@ -666,12 +839,12 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
                 
                 anagramV.setOpacity(1);
-                Stage riddleStage = new Stage();
-                anagrampuzzle.start(riddleStage);
+                Stage anagramStage = new Stage();
+                anagrampuzzle.start(anagramStage);
               
             } //end start anagram puzzle
             
-            //mark riddle puzzle complete on board if solved
+            //mark anagram puzzle complete on board if solved
             if (anagrampuzzle.isSolved()) {  
                 grid.getChildren().remove(anagramV);
                 grid.getChildren().remove(anagramSolvedV);
@@ -681,12 +854,55 @@ public class GameEngine extends Application {
                 if (anagrampuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     anagrampuzzleComplete = true;
+                }
+            }
+            
+            //start ring puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 3 && player1.getRowLocation(grid, playerNode) == 3 && !ringpuzzle.getSolved()) {
+                
+                ringV.setOpacity(1);
+                Stage ringStage = new Stage();
+                try {
+                    ringpuzzle.start(ringStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start ring puzzle
+            
+            //mark ring puzzle complete on board if solved
+            if (ringpuzzle.getSolved()) {      
+                grid.getChildren().remove(ringV);
+                grid.getChildren().remove(ringSolvedV);
+                grid.add(ringSolvedV, 3, 3, 1, 1);
+                //update player score
+                if (ringpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
+                    ringpuzzleComplete = true;
                 }
             }
             
         }
     }
+    
     //go west btn handler
     class WestBtnHandler implements EventHandler<ActionEvent> {
         
@@ -701,7 +917,7 @@ public class GameEngine extends Application {
             }
             
             //start torch puzzle
-            if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 3 && !torchpuzzle.isSolved()) {
+            if(player1.getColumnLocation(grid, playerNode) == 1 && player1.getRowLocation(grid, playerNode) == 2 && !torchpuzzle.isSolved()) {
                 
                 torchV.setOpacity(1);
                 Stage torchStage = new Stage();
@@ -717,11 +933,19 @@ public class GameEngine extends Application {
             if (torchpuzzle.isSolved()) {  
                 grid.getChildren().remove(torchV);
                 grid.getChildren().remove(torchSolvedV);
-                grid.add(torchSolvedV, 2, 3, 1, 1);
+                grid.add(torchSolvedV, 1, 2, 1, 1);
                 //update player score
                 if (torchpuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     torchpuzzleComplete = true;
                 }
             }
@@ -748,6 +972,14 @@ public class GameEngine extends Application {
                 if (chesspuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     chesspuzzleComplete = true;
                 }
             }
@@ -770,6 +1002,14 @@ public class GameEngine extends Application {
                 if (riddlepuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     riddlepuzzleComplete = true;
                 }
                 
@@ -779,12 +1019,12 @@ public class GameEngine extends Application {
             if(player1.getColumnLocation(grid, playerNode) == 5 && player1.getRowLocation(grid, playerNode) == 1 && !anagrampuzzle.isSolved()) {
                 
                 anagramV.setOpacity(1);
-                Stage riddleStage = new Stage();
-                anagrampuzzle.start(riddleStage);
+                Stage anagramStage = new Stage();
+                anagrampuzzle.start(anagramStage);
               
             } //end start anagram puzzle
             
-            //mark riddle puzzle complete on board if solved
+            //mark anagram puzzle complete on board if solved
             if (anagrampuzzle.isSolved()) {  
                 grid.getChildren().remove(anagramV);
                 grid.getChildren().remove(anagramSolvedV);
@@ -794,7 +1034,49 @@ public class GameEngine extends Application {
                 if (anagrampuzzleComplete == false) {
                     player1.addToScore(25);
                     playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
                     anagrampuzzleComplete = true;
+                }
+            }
+            
+            //start ring puzzle
+            if(player1.getColumnLocation(grid, playerNode) == 3 && player1.getRowLocation(grid, playerNode) == 3 && !ringpuzzle.getSolved()) {
+                
+                ringV.setOpacity(1);
+                Stage ringStage = new Stage();
+                try {
+                    ringpuzzle.start(ringStage);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
+            } //end start ring puzzle
+            
+            //mark ring puzzle complete on board if solved
+            if (ringpuzzle.getSolved()) {      
+                grid.getChildren().remove(ringV);
+                grid.getChildren().remove(ringSolvedV);
+                grid.add(ringSolvedV, 3, 3, 1, 1);
+                //update player score
+                if (ringpuzzleComplete == false) {
+                    player1.addToScore(25);
+                    playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+                    if(player1.getScore() >=100 ) {
+                        WinModal.display(player1.getName());
+                        north.setDisable(true);
+                        east.setDisable(true);
+                        south.setDisable(true);
+                        west.setDisable(true);
+                        playerMessage.setText("YOU WON!");
+                    }
+                    ringpuzzleComplete = true;
                 }
             }
             
