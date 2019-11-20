@@ -32,6 +32,7 @@ public class ringPuzzle extends Application {
     Image blueRing;
     Image greenRing;
     Image yellowRing;
+    Image pillar;
     
     // Creating imageViews for each possible outcome
     ImageView pillar1Ring1 = new ImageView();
@@ -46,6 +47,9 @@ public class ringPuzzle extends Application {
     ImageView pillar3Ring2 = new ImageView();
     ImageView pillar3Ring3 = new ImageView();
     ImageView pillar3Ring4 = new ImageView();
+    ImageView pillar1 = new ImageView();
+    ImageView pillar2 = new ImageView();
+    ImageView pillar3 = new ImageView();
     
     // Labels for things
     Label ringSelection = new Label("");
@@ -78,6 +82,7 @@ public class ringPuzzle extends Application {
         blueRing = new Image("file:images/blue.jpg");
         greenRing = new Image("file:images/green.jpg");
         yellowRing = new Image("file:images/yellow.jpg");
+        pillar = new Image("file:images/pillar.png");
         
         pillar1Ring1.setFitWidth(100);
         pillar1Ring1.setFitHeight(25);
@@ -198,10 +203,10 @@ public class ringPuzzle extends Application {
         screen.setAlignment(Pos.CENTER);
         
         // Creating the scene and displaying
-        Scene scene = new Scene(screen, 750, 600);
+        Scene scene = new Scene(screen, 950, 600);
         
-        //primaryStage.initModality(Modality.APPLICATION_MODAL);
-        //scene.getStylesheets().add("rpg-styles.css");
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
+        scene.getStylesheets().add("rpg-styles.css");
         
         primaryStage.setTitle("A series of pillars with"
                 + " several rings attached.");
@@ -446,44 +451,66 @@ public class ringPuzzle extends Application {
         
         @Override
         public void handle (ActionEvent event) {
-            if(directionNumber == 0)
+            
+            if (directionNumber == 0)
             {
-                display.setText("The red ring can be moved to any pillar"
-                + " without consequence.");
+                display.setText("The rings start on the leftmost pillar "
+                        + "(pillar 1) and are represented by the different "
+                        + "colored boxes. Click 'Get directions' "
+                        + "again to see more.");
                 directionNumber++;
             }
             else if(directionNumber == 1)
+            {
+                display.setText("Rings can only be moved if there are no rings"
+                        + " above the ring you wish to move.");
+                directionNumber++;
+            }
+            else if(directionNumber == 2)
+            {
+                display.setText("To move a ring, first select a ring, then "
+                        + "select a pillar. After you are done selecting, click"
+                        + " the 'Move' button to finalize your selections.");
+                directionNumber++;
+            }
+            else if(directionNumber == 3)
+            {
+                display.setText("Be careful! Rings can only be "
+                        + "moved certain ways...");
+                directionNumber++;
+            }
+            else if(directionNumber == 4)
+            {
+                display.setText("The red ring, for example, can be moved to "
+                        + "any pillar without consequence.");
+                directionNumber++;
+            }
+            else if(directionNumber == 5)
             {
                 display.setText("The blue ring can only safely be moved"
                 + " to a pillar as long as the red ring is not"
                 + " present on that pillar.");
                 directionNumber++;
             }
-            else if(directionNumber == 2)
+            else if(directionNumber == 6)
             {
                 display.setText("The green ring can only safely be moved"
                 + " to a pillar that has no rings, or only a yellow ring.");
                 directionNumber++;
             }
-            else if(directionNumber == 3)
+            else if(directionNumber == 7)
             {
                 display.setText("The yellow ring can only safely be"
                 + " moved to a pillar that has no rings.");
                 directionNumber++;
             }
-            else if(directionNumber == 4)
+            else if(directionNumber == 8)
             {
                 display.setText("'It seems I need to move all the rings"
                 + " to the rightmost pillar.'");
                 directionNumber++;
             }
-             else if(directionNumber == 5)
-            {
-                display.setText("Rings can only be moved if there are no rings"
-                        + " above the ring you wish to move.");
-                directionNumber++;
-            }
-            else if(directionNumber == 6)
+            else if(directionNumber == 9)
             {
                 display.setText("");
                 directionNumber = 0;
