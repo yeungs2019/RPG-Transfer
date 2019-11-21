@@ -68,9 +68,6 @@ public class GameEngine extends Application {
     ImageView chessSolvedV;
     ImageView anagramSolvedV;
     ImageView ringSolvedV;
-    ImageView clearliquidTakenV;
-    ImageView yellowpotionTakenV;
-    ImageView redliquidTakenV;
     
     //puzzle complete booleans
     private boolean torchpuzzleComplete;
@@ -79,7 +76,6 @@ public class GameEngine extends Application {
     private boolean chesspuzzleComplete;
     private boolean ringpuzzleComplete;
 
-    
     //puzzles
     torchPuzzle torchpuzzle = new torchPuzzle();
     chessPuzzle chesspuzzle = new chessPuzzle();
@@ -551,13 +547,7 @@ public class GameEngine extends Application {
             clearliquidV.setOpacity(1);
             Stage clearliquidStage = new Stage();
             clearliquid.start(clearliquidStage);
-
         } //end start ring puzzle
-
-        //mark ring puzzle complete on board if solved
-        if (clearliquid.isInventoryOrNot()) {      
-            player1.addToItemsList("Clear Liquid");
-        }
     }
     
     //ExtraLife item
@@ -569,11 +559,6 @@ public class GameEngine extends Application {
             yellowpotion.start(yellowpotionStage);
 
         } //end start ring puzzle
-
-        //mark ring puzzle complete on board if solved
-        if (yellowpotion.isInventoryOrNot()) {      
-            player1.addToItemsList("Yellow Potion");
-        }
     }
     
     //LifeReduction item
@@ -585,11 +570,6 @@ public class GameEngine extends Application {
             redliquid.start(redliquidStage);
 
         } //end start ring puzzle
-
-        //mark ring puzzle complete on board if solved
-        if (redliquid.isInventoryOrNot()) {      
-            player1.addToItemsList("Red Liquid");
-        }
     }
     
     /**
@@ -612,7 +592,6 @@ public class GameEngine extends Application {
             GridPane.setHalignment(playerNode, HPos.CENTER);
             grid.add(playerNode, 0, 0);
             playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
-            playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
             
             //disable start btn once player added
             start.setDisable(true);
