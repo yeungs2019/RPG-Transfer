@@ -60,6 +60,7 @@ public class GameEngine extends Application {
     ImageView anagramV;
     ImageView ringV;
     ImageView purplepotionV;
+    ImageView yellowpotionV;
     //solved icons
     ImageView torchSolvedV;
     ImageView riddleSolvedV;
@@ -67,6 +68,7 @@ public class GameEngine extends Application {
     ImageView anagramSolvedV;
     ImageView ringSolvedV;
     ImageView purplepotionTakenV;
+    ImageView yellowpotionTakenV;
     
     //puzzle complete booleans
     private boolean torchpuzzleComplete;
@@ -74,7 +76,6 @@ public class GameEngine extends Application {
     private boolean anagrampuzzleComplete;
     private boolean chesspuzzleComplete;
     private boolean ringpuzzleComplete;
-    private boolean purplepotionComplete;
 
     
     //puzzles
@@ -84,6 +85,7 @@ public class GameEngine extends Application {
     anagramPuzzle anagrampuzzle = new anagramPuzzle();
     ringPuzzle ringpuzzle = new ringPuzzle();
     DarkSuit purplepotion = new DarkSuit();
+    ExtraLife yellowpotion = new ExtraLife();
     
     
     @Override
@@ -305,6 +307,14 @@ public class GameEngine extends Application {
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(purplepotionV, 6, 4, 1, 1);
         GridPane.setHalignment(purplepotionV, HPos.CENTER);
+        
+        //Item 2
+        Image yellowpotionIcon = new Image("file:images/yellow-potion.png");
+        yellowpotionV = new ImageView(yellowpotionIcon);
+        yellowpotionV.setOpacity(0.7);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(yellowpotionV, 4, 1, 1, 1);
+        GridPane.setHalignment(yellowpotionV, HPos.CENTER);
         
         //create puzzle is solved icons
         Image torchpuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
@@ -539,6 +549,22 @@ public class GameEngine extends Application {
         }
     }
     
+    //ExtraLife item
+    private void extralife() {
+        if(player1.getColumnLocation(grid, playerNode) == 4 && player1.getRowLocation(grid, playerNode) == 1 && !yellowpotion.isInventoryOrNot()) {
+
+            yellowpotionV.setOpacity(1);
+            Stage yellowpotionStage = new Stage();
+            yellowpotion.start(yellowpotionStage);
+
+        } //end start ring puzzle
+
+        //mark ring puzzle complete on board if solved
+        if (yellowpotion.isInventoryOrNot()) {      
+            player1.addToItemsList("Yellow Potion");
+        }
+    }
+    
     /**
      * Event Handlers
     **/
@@ -602,6 +628,9 @@ public class GameEngine extends Application {
             //darksuit item
             darksuit();
             
+            //extralife item
+            extralife();
+            
         }
     }
     
@@ -635,6 +664,9 @@ public class GameEngine extends Application {
             
             //darksuit item
             darksuit();
+            
+            //extralife item
+            extralife();
             
             
         }
@@ -671,6 +703,9 @@ public class GameEngine extends Application {
             //darksuit item
             darksuit();
             
+            //extralife item
+            extralife();
+            
         }
     }
     
@@ -704,6 +739,9 @@ public class GameEngine extends Application {
             
             //darksuit item
             darksuit();
+            
+            //extralife item
+            extralife();
         }
     }
     
