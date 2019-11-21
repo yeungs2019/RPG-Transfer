@@ -53,18 +53,20 @@ public class GameEngine extends Application {
     ImageView playerNode;
     String playerName;
     String profileImgLocation;
-    //puzzle icons 
+    //puzzle/item icons 
     ImageView torchV;
     ImageView chessV;
     ImageView riddleV;
     ImageView anagramV;
     ImageView ringV;
+    ImageView purplepotionV;
     //solved icons
     ImageView torchSolvedV;
     ImageView riddleSolvedV;
     ImageView chessSolvedV;
     ImageView anagramSolvedV;
     ImageView ringSolvedV;
+    ImageView purplepotionTakenV;
     
     //puzzle complete booleans
     private boolean torchpuzzleComplete;
@@ -72,6 +74,7 @@ public class GameEngine extends Application {
     private boolean anagrampuzzleComplete;
     private boolean chesspuzzleComplete;
     private boolean ringpuzzleComplete;
+    private boolean purplepotionComplete;
 
     
     //puzzles
@@ -80,6 +83,7 @@ public class GameEngine extends Application {
     riddlePuzzle riddlepuzzle = new riddlePuzzle();
     anagramPuzzle anagrampuzzle = new anagramPuzzle();
     ringPuzzle ringpuzzle = new ringPuzzle();
+    DarkSuit purplepotion = new DarkSuit();
     
     
     @Override
@@ -293,6 +297,14 @@ public class GameEngine extends Application {
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(ringV, 3, 3, 1, 1);
         GridPane.setHalignment(ringV, HPos.CENTER);
+        
+        //Item 1
+        Image purplepotionIcon = new Image("file:images/purple-potion.png");
+        purplepotionV = new ImageView(purplepotionIcon);
+        purplepotionV.setOpacity(0.7);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(purplepotionV, 6, 4, 1, 1);
+        GridPane.setHalignment(purplepotionV, HPos.CENTER);
         
         //create puzzle is solved icons
         Image torchpuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
@@ -511,6 +523,22 @@ public class GameEngine extends Application {
         }
     }
     
+    //DarkSuit item
+    private void darksuit() {
+        if(player1.getColumnLocation(grid, playerNode) == 6 && player1.getRowLocation(grid, playerNode) == 4 && !purplepotion.isInventoryOrNot()) {
+
+            purplepotionV.setOpacity(1);
+            Stage purplepotionStage = new Stage();
+            purplepotion.start(purplepotionStage);
+
+        } //end start ring puzzle
+
+        //mark ring puzzle complete on board if solved
+        if (purplepotion.isInventoryOrNot()) {      
+            player1.addToItemsList("Purple Potion");
+        }
+    }
+    
     /**
      * Event Handlers
     **/
@@ -571,6 +599,9 @@ public class GameEngine extends Application {
             //start ring puzzle
             ring();
             
+            //darksuit item
+            darksuit();
+            
         }
     }
     
@@ -601,6 +632,9 @@ public class GameEngine extends Application {
             
             //start ring puzzle
             ring();
+            
+            //darksuit item
+            darksuit();
             
             
         }
@@ -634,6 +668,9 @@ public class GameEngine extends Application {
             //start ring puzzle
             ring();
             
+            //darksuit item
+            darksuit();
+            
         }
     }
     
@@ -665,6 +702,8 @@ public class GameEngine extends Application {
             //start ring puzzle
             ring();
             
+            //darksuit item
+            darksuit();
         }
     }
     
