@@ -7,15 +7,19 @@ package rpg;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -33,6 +37,9 @@ public class Reverse extends Application  {
     protected int level = 0;
     protected Boolean isMagic = false;
     protected Boolean isUsed = false;
+    protected Boolean isCorrect = false;
+    protected String playerAnswer = "";
+    protected String correctAnswer = "";
     // Creates the label
     Label label = new Label("You have found a jar of clear liquid, would"
                 + " you like to pick it up?");
@@ -41,23 +48,18 @@ public class Reverse extends Application  {
         Button No = new Button();
         Button Used = new Button();
         Button Unused = new Button();
-    
-//    public Test (String t, String n, boolean o, int v, 
-//            int l, Boolean m, String e, Boolean u, Boolean a)
-//    {
-//        type = t;
-//        name = n;
-//        isInventory = o;
-//        value = v;
-//        level = l;
-//        isMagic = m;
-//        effect = e;
-//        isUsed = u;
-//        correctLocation = a;
-//    }
-    
      
     public void start(Stage primaryStage) {
+        // Image object
+        Image Clear = new Image("file:images/ClearP.jpg");
+        // Create ImageView object
+        ImageView ClearView = new ImageView(Clear);
+        //Putting the ImageView in the hbox
+        HBox ClearImage = new HBox(ClearView);
+        // Setting the width and height
+        ClearView.setFitWidth(200);
+        ClearView.setFitHeight(200);
+        
         // sets the text of the button
         Yes.setText("Yes");
         No.setText("No");
@@ -67,23 +69,22 @@ public class Reverse extends Application  {
         
         // Leaves the window
         Button Leave = new Button("Leave");
-        Leave.setOnAction(e-> {
-                primaryStage.close();
-            });
         
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(new LeaveClickHandler());
+        Leave.setOnAction(e -> Platform.exit());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
     
+        ClearImage.setAlignment(Pos.CENTER);
         HBox ButtonHolder = new HBox(10, Yes, No, Leave);
         ButtonHolder.setAlignment(Pos.CENTER);
-        VBox LabelHolder = new VBox(100, label, ButtonHolder);
+        VBox LabelHolder = new VBox(100, label, ClearImage, ButtonHolder);
         LabelHolder.setAlignment(Pos.CENTER);
  
         Scene scene = new Scene(LabelHolder, 300, 250);
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
         
         primaryStage.setTitle("Reverse");
         primaryStage.setScene(scene);
@@ -102,18 +103,7 @@ public class Reverse extends Application  {
     public void setEffect(String effect) {
         this.effect = effect;
     }
-    
-    // used is player using the item,
-    // not the player is going to use it or not
-//    public boolean isUsed(){
-//        // If the user uses it on a puzzle, then the puzzle will be skipped
-//        if(used){
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }     
-//    }
+   
     // This dicatates when user decides to add the item
     class YesClickHandler implements EventHandler<ActionEvent>
     {
@@ -147,6 +137,10 @@ public class Reverse extends Application  {
             Used.setVisible(false);
             Unused.setVisible(false);
             
+            isUsed();
+            
+            // This will be applied when the player goes to solve the puzzle
+            isThatCorrect();
             addToInventory();
         }       
     }
@@ -160,13 +154,6 @@ public class Reverse extends Application  {
             Used.setVisible(false);
             Unused.setVisible(false);
            
-            addToInventory();
-        }
-    }
-    class LeaveClickHandler implements EventHandler<ActionEvent>
-    {
-        @Override
-        public void handle(ActionEvent event){
             addToInventory();
         }
     }
@@ -188,16 +175,19 @@ public class Reverse extends Application  {
         return correctLocation;
     }
     public boolean isUsed(){
-        // If the user uses it on a puzzle, then the puzzle will be skipped
+        // When they previously picked up this item, it will be applied to the 
+        // next puzzle they step on.
         if(isUsed){
             // this signifies the user used the potion and removes it from inventory
             isUsed = true;
             inInventory = false;
         }
-        else{
-            isUsed = false;
-            inInventory = true;
-        } 
+        return false;
+    }
+    public boolean isThatCorrect(){
+        if (playerAnswer.equalsIgnoreCase(correctAnswer)){
+            return isCorrect;
+        }
         return false;
     }
  

@@ -7,15 +7,19 @@ package rpg;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -42,22 +46,17 @@ public class Reveal extends Application  {
         Button Used = new Button();
         Button Unused = new Button();
     
-//    public Test (String t, String n, boolean o, int v, 
-//            int l, Boolean m, String e, Boolean u, Boolean a)
-//    {
-//        type = t;
-//        name = n;
-//        isInventory = o;
-//        value = v;
-//        level = l;
-//        isMagic = m;
-//        effect = e;
-//        isUsed = u;
-//        correctLocation = a;
-//    }
-    
-     
     public void start(Stage primaryStage) {
+        // Image object
+        Image Blue = new Image("file:images/BlueP.jng");
+        // Create ImageView object
+        ImageView BlueView = new ImageView(Blue);
+        //Putting the ImageView in the hbox
+        HBox BlueImage = new HBox(BlueView);
+        // Setting the width and height
+        BlueView.setFitWidth(200);
+        BlueView.setFitHeight(200);
+        
         // sets the text of the button
         Yes.setText("Yes");
         No.setText("No");
@@ -67,23 +66,22 @@ public class Reveal extends Application  {
         
         // Leaves the window
         Button Leave = new Button("Leave");
-        Leave.setOnAction(e-> {
-                primaryStage.close();
-            });
-        
+        Leave.setOnAction(e -> Platform.exit());
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(new LeaveClickHandler());
+        Leave.setOnAction(e -> Platform.exit());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
     
+        BlueImage.setAlignment(Pos.CENTER);
         HBox ButtonHolder = new HBox(10, Yes, No, Leave);
         ButtonHolder.setAlignment(Pos.CENTER);
-        VBox LabelHolder = new VBox(100, label, ButtonHolder);
+        VBox LabelHolder = new VBox(100, label, BlueImage, ButtonHolder);
         LabelHolder.setAlignment(Pos.CENTER);
  
         Scene scene = new Scene(LabelHolder, 300, 250);
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
         
         primaryStage.setTitle("Reveal");
         primaryStage.setScene(scene);
@@ -103,17 +101,6 @@ public class Reveal extends Application  {
         this.effect = effect;
     }
     
-    // used is player using the item,
-    // not the player is going to use it or not
-//    public boolean isUsed(){
-//        // If the user uses it on a puzzle, then the puzzle will be skipped
-//        if(used){
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }     
-//    }
     // This dicatates when user decides to add the item
     class YesClickHandler implements EventHandler<ActionEvent>
     {
@@ -157,13 +144,6 @@ public class Reveal extends Application  {
             Used.setVisible(false);
             Unused.setVisible(false);
            
-            addToInventory();
-        }
-    }
-    class LeaveClickHandler implements EventHandler<ActionEvent>
-    {
-        @Override
-        public void handle(ActionEvent event){
             addToInventory();
         }
     }

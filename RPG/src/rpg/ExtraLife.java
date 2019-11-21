@@ -7,15 +7,19 @@ package rpg;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -29,7 +33,9 @@ public class ExtraLife extends Application  {
     protected Boolean inInventory = false;
     protected String type = "";
     protected String name = "";
+    // score will be the score counter;
     protected int value = 0;
+    protected int score = 0;
     protected int level = 0;
     protected Boolean isMagic = false;
     protected Boolean isUsed = false;
@@ -41,23 +47,18 @@ public class ExtraLife extends Application  {
         Button No = new Button();
         Button Used = new Button();
         Button Unused = new Button();
-    
-//    public Test (String t, String n, boolean o, int v, 
-//            int l, Boolean m, String e, Boolean u, Boolean a)
-//    {
-//        type = t;
-//        name = n;
-//        isInventory = o;
-//        value = v;
-//        level = l;
-//        isMagic = m;
-//        effect = e;
-//        isUsed = u;
-//        correctLocation = a;
-//    }
-    
-     
+        
     public void start(Stage primaryStage) {
+        // Image object
+        Image Yellow = new Image("file:images/YellowP.jpg");
+        // Create ImageView object
+        ImageView YellowView = new ImageView(Yellow);
+        //Putting the ImageView in the hbox
+        HBox YellowImage = new HBox(YellowView);
+        // Setting the width and height
+        YellowView.setFitWidth(200);
+        YellowView.setFitHeight(200);
+        
         // sets the text of the button
         Yes.setText("Yes");
         No.setText("No");
@@ -67,23 +68,22 @@ public class ExtraLife extends Application  {
         
         // Leaves the window
         Button Leave = new Button("Leave");
-        Leave.setOnAction(e-> {
-                primaryStage.close();
-            });
-        
+       
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(new LeaveClickHandler());
+        Leave.setOnAction(e -> Platform.exit());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
-    
+        
+        YellowImage.setAlignment(Pos.CENTER);
         HBox ButtonHolder = new HBox(10, Yes, No, Leave);
         ButtonHolder.setAlignment(Pos.CENTER);
-        VBox LabelHolder = new VBox(100, label, ButtonHolder);
+        VBox LabelHolder = new VBox(100, label, YellowImage, ButtonHolder);
         LabelHolder.setAlignment(Pos.CENTER);
  
         Scene scene = new Scene(LabelHolder, 300, 250);
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
         
         primaryStage.setTitle("Extra Life");
         primaryStage.setScene(scene);
@@ -114,7 +114,7 @@ public class ExtraLife extends Application  {
 //            return false;
 //        }     
 //    }
-    // This dicatates when user decides to add the item
+    // These buttons dicatates when user decides to add the item
     class YesClickHandler implements EventHandler<ActionEvent>
     {
         @Override
@@ -139,6 +139,8 @@ public class ExtraLife extends Application  {
             addToInventory();
         }
     }
+    // These buttons will call code that allows user to have option to 
+    // use potion if desired.
     class UsedClickHandler implements EventHandler<ActionEvent>
     {
         @Override
@@ -147,6 +149,7 @@ public class ExtraLife extends Application  {
             Used.setVisible(false);
             Unused.setVisible(false);
             
+            isUsed();
             addToInventory();
         }       
     }
@@ -158,13 +161,7 @@ public class ExtraLife extends Application  {
             Used.setVisible(false);
             Unused.setVisible(false);
            
-            addToInventory();
-        }
-    }
-    class LeaveClickHandler implements EventHandler<ActionEvent>
-    {
-        @Override
-        public void handle(ActionEvent event){
+            isUsed();
             addToInventory();
         }
     }
@@ -192,6 +189,7 @@ public class ExtraLife extends Application  {
             // this signifies the user used the potion and removes it from inventory
             isUsed = true;
             inInventory = false;
+            score = score + 25;
         }
         else{
             isUsed = false;
