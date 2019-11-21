@@ -73,7 +73,7 @@ public class Reverse extends Application  {
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(e -> Platform.exit());
+        Leave.setOnAction(e -> primaryStage.close());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
     
