@@ -59,16 +59,15 @@ public class GameEngine extends Application {
     ImageView riddleV;
     ImageView anagramV;
     ImageView ringV;
-    ImageView purplepotionV;
+    ImageView clearliquidV;
     ImageView yellowpotionV;
+    ImageView redliquidV;
     //solved icons
     ImageView torchSolvedV;
     ImageView riddleSolvedV;
     ImageView chessSolvedV;
     ImageView anagramSolvedV;
     ImageView ringSolvedV;
-    ImageView purplepotionTakenV;
-    ImageView yellowpotionTakenV;
     
     //puzzle complete booleans
     private boolean torchpuzzleComplete;
@@ -77,15 +76,15 @@ public class GameEngine extends Application {
     private boolean chesspuzzleComplete;
     private boolean ringpuzzleComplete;
 
-    
     //puzzles
     torchPuzzle torchpuzzle = new torchPuzzle();
     chessPuzzle chesspuzzle = new chessPuzzle();
     riddlePuzzle riddlepuzzle = new riddlePuzzle();
     anagramPuzzle anagrampuzzle = new anagramPuzzle();
     ringPuzzle ringpuzzle = new ringPuzzle();
-    DarkSuit purplepotion = new DarkSuit();
+    Reverse clearliquid = new Reverse();
     ExtraLife yellowpotion = new ExtraLife();
+    LifeReduction redliquid = new LifeReduction();
     
     
     @Override
@@ -263,7 +262,7 @@ public class GameEngine extends Application {
         //puzzle 1
         Image torchIcon = new Image("file:images/puzzle-icon.png");
         torchV = new ImageView(torchIcon);
-        torchV.setOpacity(0.7);
+        torchV.setOpacity(0);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(torchV, 1, 2, 1, 1);
         GridPane.setHalignment(torchV, HPos.CENTER);
@@ -271,7 +270,7 @@ public class GameEngine extends Application {
         //puzzle 2
         Image chessIcon = new Image("file:images/puzzle-icon.png");
         chessV = new ImageView(chessIcon);
-        chessV.setOpacity(0.7);
+        chessV.setOpacity(0);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(chessV, 4, 5, 1, 1);
         GridPane.setHalignment(chessV, HPos.CENTER);
@@ -279,7 +278,7 @@ public class GameEngine extends Application {
         //puzzle 3
         Image riddleIcon = new Image("file:images/puzzle-icon.png");
         riddleV = new ImageView(riddleIcon);
-        riddleV.setOpacity(0.7);
+        riddleV.setOpacity(0);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(riddleV, 0, 6, 1, 1);
         GridPane.setHalignment(riddleV, HPos.CENTER);
@@ -287,7 +286,7 @@ public class GameEngine extends Application {
         //puzzle 4
         Image anagramIcon = new Image("file:images/puzzle-icon.png");
         anagramV = new ImageView(anagramIcon);
-        anagramV.setOpacity(0.7);
+        anagramV.setOpacity(0);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(anagramV, 5, 1, 1, 1);
         GridPane.setHalignment(anagramV, HPos.CENTER);
@@ -295,26 +294,34 @@ public class GameEngine extends Application {
         //puzzle 5
         Image ringIcon = new Image("file:images/puzzle-icon.png");
         ringV = new ImageView(ringIcon);
-        ringV.setOpacity(0.7);
+        ringV.setOpacity(0);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(ringV, 3, 3, 1, 1);
         GridPane.setHalignment(ringV, HPos.CENTER);
         
         //Item 1
-        Image purplepotionIcon = new Image("file:images/purple-potion.png");
-        purplepotionV = new ImageView(purplepotionIcon);
-        purplepotionV.setOpacity(0.7);
+        Image clearliquidIcon = new Image("file:images/clear-liquid.png");
+        clearliquidV = new ImageView(clearliquidIcon);
+        clearliquidV.setOpacity(0);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
-        grid.add(purplepotionV, 6, 4, 1, 1);
-        GridPane.setHalignment(purplepotionV, HPos.CENTER);
+        grid.add(clearliquidV, 6, 4, 1, 1);
+        GridPane.setHalignment(clearliquidV, HPos.CENTER);
         
         //Item 2
         Image yellowpotionIcon = new Image("file:images/yellow-potion.png");
         yellowpotionV = new ImageView(yellowpotionIcon);
-        yellowpotionV.setOpacity(0.7);
+        yellowpotionV.setOpacity(0);
         //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
         grid.add(yellowpotionV, 4, 1, 1, 1);
         GridPane.setHalignment(yellowpotionV, HPos.CENTER);
+        
+        //Item 3
+        Image redliquidIcon = new Image("file:images/red-liquid.png");
+        redliquidV = new ImageView(redliquidIcon);
+        redliquidV.setOpacity(0);
+        //have message span 1 col and 2 rows (params are control, col, row, colspan, rowspan)
+        grid.add(redliquidV, 2, 4, 1, 1);
+        GridPane.setHalignment(redliquidV, HPos.CENTER);
         
         //create puzzle is solved icons
         Image torchpuzSolvedIcon = new Image("file:images/puzzle-solved-icon.png");
@@ -533,20 +540,14 @@ public class GameEngine extends Application {
         }
     }
     
-    //DarkSuit item
-    private void darksuit() {
-        if(player1.getColumnLocation(grid, playerNode) == 6 && player1.getRowLocation(grid, playerNode) == 4 && !purplepotion.isInventoryOrNot()) {
+    //Reverse item
+    private void reverse() {
+        if(player1.getColumnLocation(grid, playerNode) == 6 && player1.getRowLocation(grid, playerNode) == 4 && !clearliquid.isInventoryOrNot()) {
 
-            purplepotionV.setOpacity(1);
-            Stage purplepotionStage = new Stage();
-            purplepotion.start(purplepotionStage);
-
+            clearliquidV.setOpacity(1);
+            Stage clearliquidStage = new Stage();
+            clearliquid.start(clearliquidStage);
         } //end start ring puzzle
-
-        //mark ring puzzle complete on board if solved
-        if (purplepotion.isInventoryOrNot()) {      
-            player1.addToItemsList("Purple Potion");
-        }
     }
     
     //ExtraLife item
@@ -558,11 +559,17 @@ public class GameEngine extends Application {
             yellowpotion.start(yellowpotionStage);
 
         } //end start ring puzzle
+    }
+    
+    //LifeReduction item
+    private void lifereduction() {
+        if(player1.getColumnLocation(grid, playerNode) == 2 && player1.getRowLocation(grid, playerNode) == 4 && !redliquid.isInventoryOrNot()) {
 
-        //mark ring puzzle complete on board if solved
-        if (yellowpotion.isInventoryOrNot()) {      
-            player1.addToItemsList("Yellow Potion");
-        }
+            redliquidV.setOpacity(1);
+            Stage redliquidStage = new Stage();
+            redliquid.start(redliquidStage);
+
+        } //end start ring puzzle
     }
     
     /**
@@ -585,7 +592,6 @@ public class GameEngine extends Application {
             GridPane.setHalignment(playerNode, HPos.CENTER);
             grid.add(playerNode, 0, 0);
             playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
-            playerItems.setText(String.valueOf(player1.getName() + "\'s Items: " + player1.getItems()));
             
             //disable start btn once player added
             start.setDisable(true);
@@ -625,11 +631,14 @@ public class GameEngine extends Application {
             //start ring puzzle
             ring();
             
-            //darksuit item
-            darksuit();
+            //reverse item
+            reverse();
             
             //extralife item
             extralife();
+            
+            //life reduction item
+            lifereduction();
             
         }
     }
@@ -662,12 +671,14 @@ public class GameEngine extends Application {
             //start ring puzzle
             ring();
             
-            //darksuit item
-            darksuit();
+            //reverse item
+            reverse();
             
             //extralife item
             extralife();
             
+            //life reduction item
+            lifereduction();
             
         }
     }
@@ -700,11 +711,14 @@ public class GameEngine extends Application {
             //start ring puzzle
             ring();
             
-            //darksuit item
-            darksuit();
+            //reverse item
+            reverse();
             
             //extralife item
             extralife();
+            
+            //life reduction item
+            lifereduction();
             
         }
     }
@@ -737,11 +751,15 @@ public class GameEngine extends Application {
             //start ring puzzle
             ring();
             
-            //darksuit item
-            darksuit();
+            //reverse item
+            reverse();
             
             //extralife item
             extralife();
+            
+            //life reduction item
+            lifereduction();
+            
         }
     }
     
@@ -753,7 +771,6 @@ public class GameEngine extends Application {
             close.getScene().getWindow().hide();
         }
     }
-
 
     /**
      * @param args the command line arguments
