@@ -110,7 +110,7 @@ public class LifeReduction extends Application  {
         @Override
         public void handle(ActionEvent event){
             label.setText("You have picked up a(n) 'life reduction' potion! Your"
-                    + " score will be reduced by half");
+                    + " score will be reduced by 25");
             Yes.setVisible(false);
             No.setVisible(false);
             
@@ -137,7 +137,7 @@ public class LifeReduction extends Application  {
     {
         @Override
         public void handle(ActionEvent event){
-            label.setText("Your life has been cut in half");
+            label.setText("Your life has been cut by 25");
             Used.setVisible(false);
             Unused.setVisible(false);
             
@@ -171,7 +171,7 @@ public class LifeReduction extends Application  {
         return inInventory;
     }
     public boolean isOnMethod(){
-        score = score - (score / 2);
+        score = score - 25;
         correctLocation = true;
         return correctLocation;
     }
@@ -182,7 +182,7 @@ public class LifeReduction extends Application  {
             // this signifies the user used the potion and removes it from inventory
             isUsed = true;
             inInventory = false;
-            score = score - (score / 2);
+            score = score - 25;
             
         }
         return false;
@@ -192,7 +192,7 @@ public class LifeReduction extends Application  {
     {
         i.setValue(3 * i.getValue());
         i.setLevel(1 + i.getLevel());
-        setEffect("Cuts players score in half");
+        setEffect("Cuts players score by 25");
         
         return;
     }
