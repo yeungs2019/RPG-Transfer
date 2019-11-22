@@ -33,11 +33,13 @@ public class LifeReduction extends Application  {
     protected Boolean inInventory = false;
     protected String type = "";
     protected String name = "";
+    // score will be the counter
     protected int value = 0;
+    protected int score = 0;
     protected int level = 0;
     protected Boolean isMagic = false;
     protected Boolean isUsed = true;
-    protected int score = 0;
+    protected Boolean taken = false;
     // Creates the label
     Label label = new Label("You have found a vessel of red liquid, would"
                 + " you like to pick it up?");
@@ -113,6 +115,7 @@ public class LifeReduction extends Application  {
             No.setVisible(false);
             
             addToInventory();
+            taken = true;
         }       
     }
     class NoClickHandler implements EventHandler<ActionEvent>
@@ -126,6 +129,7 @@ public class LifeReduction extends Application  {
             No.setVisible(false);
            
             addToInventory();
+            taken = false;
         }
     }
     // This will happen no matter what because the effect is applied immediately
@@ -167,6 +171,7 @@ public class LifeReduction extends Application  {
         return inInventory;
     }
     public boolean isOnMethod(){
+        score = score - (score / 2);
         correctLocation = true;
         return correctLocation;
     }

@@ -39,6 +39,7 @@ public class ExtraLife extends Application  {
     protected int level = 0;
     protected Boolean isMagic = false;
     protected Boolean isUsed = false;
+    protected Boolean taken = false;
     // Creates the label
     Label label = new Label("You have found a jar of yellow potion, would"
                 + " you like to pick it up?");
@@ -113,8 +114,9 @@ public class ExtraLife extends Application  {
                     + " Your score is increased by 25 points!");
             Yes.setVisible(false);
             No.setVisible(false);
-            
+          
             addToInventory();
+            taken = true;
         }       
     }
     class NoClickHandler implements EventHandler<ActionEvent>
@@ -125,8 +127,9 @@ public class ExtraLife extends Application  {
                     + " Your score could've been improved.");
             Yes.setVisible(false);
             No.setVisible(false);
-           
+            
             addToInventory();
+            taken = false;
         }
     }
     // These buttons will call code that allows user to have option to 
@@ -159,6 +162,7 @@ public class ExtraLife extends Application  {
         // If the user gets the item, they can choose to add it or not
         if(correctLocation){
             // adds the inventory immediately
+            score = score + 25;
             inInventory = true;
         }
         else{
@@ -169,6 +173,7 @@ public class ExtraLife extends Application  {
         return inInventory;
     }
     public boolean isOnMethod(){
+        score = score + 25;
         correctLocation = true;
         return correctLocation;
     }

@@ -40,6 +40,8 @@ public class Reverse extends Application  {
     protected Boolean isCorrect = false;
     protected String playerAnswer = "";
     protected String correctAnswer = "";
+    
+    protected Boolean taken = false;
     // Creates the label
     Label label = new Label("You have found a jar of clear liquid, would"
                 + " you like to pick it up?");
@@ -112,10 +114,13 @@ public class Reverse extends Application  {
         public void handle(ActionEvent event){
             label.setText("You have picked up a 'reverse' potion. This will "
                     + "hurt when you solve a puzzle.");
+            taken = true;
             Yes.setVisible(false);
             No.setVisible(false);
             
             addToInventory();
+            
+            taken = true;
         }       
     }
     class NoClickHandler implements EventHandler<ActionEvent>
@@ -123,10 +128,13 @@ public class Reverse extends Application  {
         @Override
         public void handle(ActionEvent event){
             label.setText("You have left a 'reverse' potion. Lucky!");
+            
             Yes.setVisible(false);
             No.setVisible(false);
            
             addToInventory();
+            
+            taken = false;
         }
     }
     class UsedClickHandler implements EventHandler<ActionEvent>
