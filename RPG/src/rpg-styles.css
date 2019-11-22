@@ -75,3 +75,7 @@
     -fx-border-width: none;
     -fx-margin-top: 300px;
 }
+
+#winLabel {
+    -fx-font-size: 24pt;
+}
