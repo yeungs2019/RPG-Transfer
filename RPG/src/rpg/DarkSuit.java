@@ -69,7 +69,7 @@ public class DarkSuit extends Application  {
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(e -> Platform.exit());
+        Leave.setOnAction(e -> primaryStage.close());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
         
@@ -81,8 +81,9 @@ public class DarkSuit extends Application  {
  
         Scene scene = new Scene(LabelHolder, 300, 250);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
+        scene.getStylesheets().add("rpg-styles.css");
         
-        primaryStage.setTitle("DarkSuit");
+        primaryStage.setTitle("Potion Motion");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

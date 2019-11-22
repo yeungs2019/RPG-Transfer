@@ -66,11 +66,11 @@ public class Reveal extends Application  {
         
         // Leaves the window
         Button Leave = new Button("Leave");
-        Leave.setOnAction(e -> Platform.exit());
+        
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(e -> Platform.exit());
+        Leave.setOnAction(e -> primaryStage.close());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
     
@@ -82,8 +82,9 @@ public class Reveal extends Application  {
  
         Scene scene = new Scene(LabelHolder, 300, 250);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
+        scene.getStylesheets().add("rpg-styles.css");
         
-        primaryStage.setTitle("Reveal");
+        primaryStage.setTitle("Potion Motion");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

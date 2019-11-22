@@ -73,20 +73,21 @@ public class Reverse extends Application  {
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(e -> Platform.exit());
+        Leave.setOnAction(e -> primaryStage.close());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
     
         ClearImage.setAlignment(Pos.CENTER);
         HBox ButtonHolder = new HBox(10, Yes, No, Leave);
         ButtonHolder.setAlignment(Pos.CENTER);
-        VBox LabelHolder = new VBox(100, label, ClearImage, ButtonHolder);
+        VBox LabelHolder = new VBox(10, label, ClearImage, ButtonHolder);
         LabelHolder.setAlignment(Pos.CENTER);
  
         Scene scene = new Scene(LabelHolder, 300, 250);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
+        scene.getStylesheets().add("rpg-styles.css");
         
-        primaryStage.setTitle("Reverse");
+        primaryStage.setTitle("Potion Motion");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

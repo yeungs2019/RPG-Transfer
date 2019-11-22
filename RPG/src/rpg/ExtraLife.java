@@ -72,20 +72,21 @@ public class ExtraLife extends Application  {
         // Register the event handler
         Yes.setOnAction(new YesClickHandler());
         No.setOnAction(new NoClickHandler());
-        Leave.setOnAction(e -> Platform.exit());
+        Leave.setOnAction(e -> primaryStage.close());
         Used.setOnAction(new UsedClickHandler());
         Unused.setOnAction(new UnusedClickHandler());
         
         YellowImage.setAlignment(Pos.CENTER);
         HBox ButtonHolder = new HBox(10, Yes, No, Leave);
         ButtonHolder.setAlignment(Pos.CENTER);
-        VBox LabelHolder = new VBox(100, label, YellowImage, ButtonHolder);
+        VBox LabelHolder = new VBox(10, label, YellowImage, ButtonHolder);
         LabelHolder.setAlignment(Pos.CENTER);
  
         Scene scene = new Scene(LabelHolder, 300, 250);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
+        scene.getStylesheets().add("rpg-styles.css");
         
-        primaryStage.setTitle("Extra Life");
+        primaryStage.setTitle("Potion Motion");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -102,18 +103,7 @@ public class ExtraLife extends Application  {
     public void setEffect(String effect) {
         this.effect = effect;
     }
-    
-    // used is player using the item,
-    // not the player is going to use it or not
-//    public boolean isUsed(){
-//        // If the user uses it on a puzzle, then the puzzle will be skipped
-//        if(used){
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }     
-//    }
+
     // These buttons dicatates when user decides to add the item
     class YesClickHandler implements EventHandler<ActionEvent>
     {
