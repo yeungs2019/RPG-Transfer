@@ -57,8 +57,8 @@ public class ExtraLife extends Application  {
         //Putting the ImageView in the hbox
         HBox YellowImage = new HBox(YellowView);
         // Setting the width and height
-        YellowView.setFitWidth(200);
-        YellowView.setFitHeight(200);
+        YellowView.setFitWidth(100);
+        YellowView.setFitHeight(100);
         
         // sets the text of the button
         Yes.setText("Yes");

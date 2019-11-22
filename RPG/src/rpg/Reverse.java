@@ -59,8 +59,8 @@ public class Reverse extends Application  {
         //Putting the ImageView in the hbox
         HBox ClearImage = new HBox(ClearView);
         // Setting the width and height
-        ClearView.setFitWidth(200);
-        ClearView.setFitHeight(200);
+        ClearView.setFitWidth(100);
+        ClearView.setFitHeight(100);
         
         // sets the text of the button
         Yes.setText("Yes");
