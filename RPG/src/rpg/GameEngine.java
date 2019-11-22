@@ -75,6 +75,12 @@ public class GameEngine extends Application {
     private boolean anagrampuzzleComplete;
     private boolean chesspuzzleComplete;
     private boolean ringpuzzleComplete;
+    
+    private boolean extralifeTaken;
+    private boolean lifereductionTaken;
+    private boolean reverseTaken;
+    
+    HBox itemsFound;
 
     //puzzles
     torchPuzzle torchpuzzle = new torchPuzzle();
@@ -135,12 +141,13 @@ public class GameEngine extends Application {
         GridPane.setHalignment(close, HPos.CENTER);
         
         HBox directionBtns = new HBox(10, userBtns);
-        directionBtns.setPadding(new Insets(75, 0, 0, 0));
+        directionBtns.setPadding(new Insets(50, 0, 0, 0));
         
         //player message top banner 
         playerMessage = new Label();
         playerMessage.setMaxWidth(900);
         playerMessage.setAlignment(Pos.TOP_LEFT);
+        playerMessage.setPadding(new Insets(20));
         playerMessage.setText("Search for puzzles & items to find treasures. Need 100pts to Win!");
         
         playerScore = new Label();
@@ -148,6 +155,8 @@ public class GameEngine extends Application {
         
         playerItems = new Label();
         playerItems.setAlignment(Pos.TOP_LEFT);
+        
+        itemsFound = new HBox(10);
         
         //create 25 Gamesquare gameboard
         GameSquare square1 = new GameSquare(false);
@@ -345,9 +354,9 @@ public class GameEngine extends Application {
         GridPane.setHalignment(ringSolvedV, HPos.CENTER);
         
         //container box to hold main elements
-        VBox stats = new VBox(30, playerScore, playerItems, directionBtns);
+        VBox stats = new VBox(30, playerScore, directionBtns);
         HBox boardDiv = new HBox(10, start, grid, stats);
-        VBox container = new VBox(50, playerMessage, boardDiv);
+        VBox container = new VBox(25, playerMessage, boardDiv, playerItems, itemsFound);
         container.setAlignment(Pos.BASELINE_LEFT);
         container.setPadding(new Insets(25));
         
@@ -548,6 +557,24 @@ public class GameEngine extends Application {
             Stage clearliquidStage = new Stage();
             clearliquid.start(clearliquidStage);
         } //end start ring puzzle
+        
+        //mark item in players item list on board if taken
+        if (clearliquid.isInventoryOrNot()) {      
+
+            if (reverseTaken == false) {
+                player1.addToItemsList(clearliquidV);
+                itemsFound.getChildren().add(clearliquidV);
+                if(player1.getScore() >=100 ) {
+                    WinModal.display(player1.getName());
+                    north.setDisable(true);
+                    east.setDisable(true);
+                    south.setDisable(true);
+                    west.setDisable(true);
+                    playerMessage.setText("YOU WON!");
+                }
+                reverseTaken = true;
+            }
+        }
     }
     
     //ExtraLife item
@@ -559,6 +586,24 @@ public class GameEngine extends Application {
             yellowpotion.start(yellowpotionStage);
 
         } //end start ring puzzle
+        
+        //mark item in players item list on board if taken
+        if (yellowpotion.isInventoryOrNot()) {      
+
+            if (extralifeTaken == false) {
+                player1.addToItemsList(yellowpotionV);
+                itemsFound.getChildren().add(yellowpotionV);
+                if(player1.getScore() >=100 ) {
+                    WinModal.display(player1.getName());
+                    north.setDisable(true);
+                    east.setDisable(true);
+                    south.setDisable(true);
+                    west.setDisable(true);
+                    playerMessage.setText("YOU WON!");
+                }
+                extralifeTaken = true;
+            }
+        }
     }
     
     //LifeReduction item
@@ -570,6 +615,24 @@ public class GameEngine extends Application {
             redliquid.start(redliquidStage);
 
         } //end start ring puzzle
+        
+        //mark item in players item list on board if taken
+        if (redliquid.isInventoryOrNot()) {      
+
+            if (lifereductionTaken == false) {
+                player1.addToItemsList(redliquidV);
+                itemsFound.getChildren().add(redliquidV);
+                if(player1.getScore() >=100 ) {
+                    WinModal.display(player1.getName());
+                    north.setDisable(true);
+                    east.setDisable(true);
+                    south.setDisable(true);
+                    west.setDisable(true);
+                    playerMessage.setText("YOU WON!");
+                }
+                lifereductionTaken = true;
+            }
+        }
     }
     
     /**
@@ -592,6 +655,7 @@ public class GameEngine extends Application {
             GridPane.setHalignment(playerNode, HPos.CENTER);
             grid.add(playerNode, 0, 0);
             playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
+            playerItems.setText(String.valueOf("Items Found: "));
             
             //disable start btn once player added
             start.setDisable(true);

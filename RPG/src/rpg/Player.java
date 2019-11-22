@@ -18,9 +18,9 @@ import javafx.scene.layout.GridPane;
 public class Player {
     
     private String mName;
-    private Image mProfile;
+    private final Image mProfile;
     private int mScore;
-    private ArrayList<String> mItems;
+    private final ArrayList<ImageView> mItems;
     
     //constructor
     public Player(String name, String profileLocation) {
@@ -69,17 +69,17 @@ public class Player {
         return mScore;
     }
     
-    public ArrayList<String> getItems() {
+    public ArrayList<ImageView> getItems() {
         return mItems;
     }
     
-    public ArrayList<String> addToItemsList (String item) {     
-        mItems.add(item);
+    public ArrayList<ImageView> addToItemsList (ImageView itemV) {     
+        mItems.add(itemV);
         return mItems;
     }
     
-    public ArrayList<String> removeFromItemsList (String item) {     
-        mItems.remove(item);
+    public ArrayList<ImageView> removeFromItemsList (ImageView itemV) {     
+        mItems.remove(itemV);
         return mItems;
     }
     
