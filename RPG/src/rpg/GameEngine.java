@@ -147,7 +147,7 @@ public class GameEngine extends Application {
         playerMessage = new Label();
         playerMessage.setMaxWidth(900);
         playerMessage.setAlignment(Pos.TOP_LEFT);
-        playerMessage.setPadding(new Insets(20));
+        playerMessage.setPadding(new Insets(0));
         playerMessage.setText("Search for puzzles & items to find treasures. Need 100pts to Win!");
         
         playerScore = new Label();
@@ -559,7 +559,7 @@ public class GameEngine extends Application {
         } //end start ring puzzle
         
         //mark item in players item list on board if taken
-        if (clearliquid.isInventoryOrNot()) {      
+        if (clearliquid.taken) {      
 
             if (reverseTaken == false) {
                 player1.addToItemsList(clearliquidV);
@@ -588,11 +588,13 @@ public class GameEngine extends Application {
         } //end start ring puzzle
         
         //mark item in players item list on board if taken
-        if (yellowpotion.isInventoryOrNot()) {      
+        if (yellowpotion.taken) {      
 
             if (extralifeTaken == false) {
                 player1.addToItemsList(yellowpotionV);
                 itemsFound.getChildren().add(yellowpotionV);
+                player1.addToScore(25);
+                playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
                 if(player1.getScore() >=100 ) {
                     WinModal.display(player1.getName());
                     north.setDisable(true);
@@ -617,11 +619,13 @@ public class GameEngine extends Application {
         } //end start ring puzzle
         
         //mark item in players item list on board if taken
-        if (redliquid.isInventoryOrNot()) {      
+        if (redliquid.taken) {      
 
             if (lifereductionTaken == false) {
                 player1.addToItemsList(redliquidV);
                 itemsFound.getChildren().add(redliquidV);
+                player1.subtractFromScore(25);
+                playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
                 if(player1.getScore() >=100 ) {
                     WinModal.display(player1.getName());
                     north.setDisable(true);
@@ -655,7 +659,7 @@ public class GameEngine extends Application {
             GridPane.setHalignment(playerNode, HPos.CENTER);
             grid.add(playerNode, 0, 0);
             playerScore.setText(String.valueOf(player1.getName() + "\'s Score: " + player1.getScore()));
-            playerItems.setText(String.valueOf("Items Found: "));
+            playerItems.setText(String.valueOf("Items Picked Up: "));
             
             //disable start btn once player added
             start.setDisable(true);
