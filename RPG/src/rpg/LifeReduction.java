@@ -33,11 +33,13 @@ public class LifeReduction extends Application  {
     protected Boolean inInventory = false;
     protected String type = "";
     protected String name = "";
+    // score will be the counter
     protected int value = 0;
+    protected int score = 0;
     protected int level = 0;
     protected Boolean isMagic = false;
     protected Boolean isUsed = true;
-    protected int score = 0;
+    protected Boolean taken = false;
     // Creates the label
     Label label = new Label("You have found a vessel of red liquid, would"
                 + " you like to pick it up?");
@@ -108,11 +110,12 @@ public class LifeReduction extends Application  {
         @Override
         public void handle(ActionEvent event){
             label.setText("You have picked up a(n) 'life reduction' potion! Your"
-                    + " score will be reduced by half");
+                    + " score will be reduced by 25");
             Yes.setVisible(false);
             No.setVisible(false);
             
             addToInventory();
+            taken = true;
         }       
     }
     class NoClickHandler implements EventHandler<ActionEvent>
@@ -126,6 +129,7 @@ public class LifeReduction extends Application  {
             No.setVisible(false);
            
             addToInventory();
+            taken = false;
         }
     }
     // This will happen no matter what because the effect is applied immediately
@@ -133,7 +137,7 @@ public class LifeReduction extends Application  {
     {
         @Override
         public void handle(ActionEvent event){
-            label.setText("Your life has been cut in half");
+            label.setText("Your life has been cut by 25");
             Used.setVisible(false);
             Unused.setVisible(false);
             
@@ -167,6 +171,7 @@ public class LifeReduction extends Application  {
         return inInventory;
     }
     public boolean isOnMethod(){
+        score = score - 25;
         correctLocation = true;
         return correctLocation;
     }
@@ -177,7 +182,7 @@ public class LifeReduction extends Application  {
             // this signifies the user used the potion and removes it from inventory
             isUsed = true;
             inInventory = false;
-            score = score - (score / 2);
+            score = score - 25;
             
         }
         return false;
@@ -187,7 +192,7 @@ public class LifeReduction extends Application  {
     {
         i.setValue(3 * i.getValue());
         i.setLevel(1 + i.getLevel());
-        setEffect("Cuts players score in half");
+        setEffect("Cuts players score by 25");
         
         return;
     }
