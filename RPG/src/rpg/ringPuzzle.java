@@ -74,6 +74,10 @@ public class ringPuzzle extends Application {
     // Solved boolean
     protected boolean solved = false;
     
+    // Does the player have the reverse potion?
+    protected boolean hasPotion = Reverse.inInventory;
+    protected boolean used = false;
+    
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         
@@ -585,6 +589,9 @@ public class ringPuzzle extends Application {
         
         @Override
         public void handle (ActionEvent event) {
+            // Check to see if player has the potion
+            hasPotion();
+        
             checkAnswer();
         }
     }
@@ -603,6 +610,17 @@ public class ringPuzzle extends Application {
         public void handle (ActionEvent event) {
             display.setText("");
             puzzleLogicPre();
+        }
+    }
+    
+    public void hasPotion()
+    {
+        hasPotion = Reverse.inInventory;
+        
+        if(hasPotion && !used)
+        {
+            resetRings();
+            used = true;
         }
     }
 }

@@ -62,6 +62,10 @@ public class torchPuzzle extends Application {
     protected boolean solved = false;
     private boolean isFinished = false;
     
+    // Does the player have the reverse portion
+    protected boolean hasPotion = Reverse.inInventory;
+    protected boolean hasThisBeenUsedOnce = false;
+    
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         // Putting the images in the program
@@ -178,6 +182,9 @@ public class torchPuzzle extends Application {
         
         @Override
         public void handle (ActionEvent event) {
+            // Check to see if player has potion, if so reset
+            resetTorches();
+            
             if(isSolved() && !(isFinished))
             {
                 display.setText("You did it!");
@@ -213,7 +220,7 @@ public class torchPuzzle extends Application {
     }
     
     public boolean isSolved() {
-        // Check to see if all torches are on
+        // Check to see if torches are all on
         if(torch1 == true && torch2 == true && torch3 == true && 
                 torch4 == true && torch5 == true)
         {
@@ -350,4 +357,19 @@ public class torchPuzzle extends Application {
         return;
     }
     
+    public void resetTorches () {
+        hasPotion = Reverse.inInventory;
+        
+        if(hasPotion && !hasThisBeenUsedOnce)
+        {
+            torch1 = false;
+            torch2 = false;
+            torch3 = false;
+            torch4 = false;
+            torch5 = false;
+            
+            changeTorches();
+            hasThisBeenUsedOnce = true;
+        }
+    }
 }

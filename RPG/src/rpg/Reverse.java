@@ -30,7 +30,7 @@ public class Reverse extends Application  {
     
     private String effect = "";
     private Boolean correctLocation = true;
-    protected Boolean inInventory = false;
+    protected static Boolean inInventory = false;
     protected String type = "";
     protected String name = "";
     protected int value = 0;
@@ -162,7 +162,7 @@ public class Reverse extends Application  {
             label.setText("Saving it? If you insist.");
             Used.setVisible(false);
             Unused.setVisible(false);
-           
+            
             addToInventory();
         }
     }
