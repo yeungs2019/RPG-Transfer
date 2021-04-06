@@ -1,8 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* Student Name:  Steven Yeung
+* Program Name:  Role Playing Game
+* Creation Date:  September 2, 2019
+* Last Modified Date:  December 5, 2020
+* CSCI Course:  CSCI 325
+* Grade Received:  100
+* Design Comments: Coded using JavaFX.  Download Netbeans 8.2 or higher and download git files into Netbeans.  Press run in Netbeans to play the game.
+*/
 package rpg;
 
 import java.io.FileNotFoundException;
